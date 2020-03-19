@@ -14,9 +14,4 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-app.get(['/*'], function (req, res) {
-  console.log("base url redirect");
-  res.redirect(req.baseUrl + '/');
-});
-
 app.listen(port, () => console.log('server is runing on 8080'));
