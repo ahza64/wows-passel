@@ -23,7 +23,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <h1>React is loading with charts.js</h1>
+      <h1>React is loading with charts.js and node express!</h1>
         <Bar
           data={state}
           options={{
