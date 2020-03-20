@@ -10,11 +10,8 @@ require('dotenv').config();
 app.use(express.static(path.join(__dirname, 'build')));
 
 
-
-var url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?type=Destroyer&nation=japan&fields=name%2C+default_profile.concealment&application_id=' + process.env.WOWS_APP_ID;
-var jsonn = {};
-
 app.get('/api/wg', function (req, res) {
+  var url = 'https://api.worldofwarships.com/wows/encyclopedia/ships/?type=Destroyer&nation=japan&fields=name%2C+default_profile.concealment&application_id=' + process.env.WOWS_APP_ID;
   var names = [];
   var concealments = [];
   fetch(url)
