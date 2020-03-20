@@ -6,6 +6,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+      type: "Cruiser",
+      nation: "japan",
       data: {
         labels: ["Arashi"],
         datasets: [
@@ -22,7 +24,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("/api/wg")
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}`)
     .then((res) => {
       return res.json();
     })
@@ -41,7 +43,7 @@ class App extends React.Component {
     return (
     <div>
       <h1>Master boilerplate,</h1>
-      <h3>react dev server, prod express server, express api to WG api, displaying live data</h3>
+      <h3>react dev server, prod express server, express api to WG api, displaying live data!</h3>
         <Bar
           data={this.state.data}
           options={{
