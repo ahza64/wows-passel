@@ -58,7 +58,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
-      <h1>Loading WG live data on nodeJS with react!!</h1>
+      <h1>Loading WG live data on nodeJS with react!!!</h1>
         <Bar
           data={this.state.data}
           options={{
