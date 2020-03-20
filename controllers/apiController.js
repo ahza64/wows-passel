@@ -3,7 +3,6 @@ const fetch = require('node-fetch');
 module.exports = function (app) {
 
   app.get('/api/wg/:type/:nation', function (req, res) {
-    console.log(req.params);
     var url = `https://api.worldofwarships.com/wows/encyclopedia/ships/?type=${req.params.type}&nation=${req.params.nation}&fields=name%2C+default_profile.concealment&application_id=${process.env.WOWS_APP_ID}`;
 
     var names = [];

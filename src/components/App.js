@@ -6,8 +6,8 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      type: "Cruiser",
-      nation: "japan",
+      type: "AirCarrier",
+      nation: "usa",
       data: {
         labels: ["Arashi"],
         datasets: [
@@ -39,17 +39,60 @@ class App extends React.Component {
     })
   }
 
+  onFormSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.type, this.state.nation);
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      this.setState({
+        data: data
+      });
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
   render() {
     return (
     <div>
-      <h1>Master boilerplate,</h1>
-      <h3>react dev server, prod express server, express api to WG api, displaying live data!</h3>
+      <h1>full cycle external api,</h1>
+      <h3>enter values in the form and submit to retrive and graph concealment values from WG api</h3>
+      <form onSubmit={e => this.onFormSubmit(e)}>
+        <div>
+          <div>
+          <label>class</label>
+          <input
+            type="text"
+            value={this.state.type}
+            onChange={e => this.setState({ type: e.target.value })}
+          /> Destroyer, Cruiser, Battleship, AirCarrier
+          </div>
+          <div>
+          <label>nation</label>
+          <input
+            type="text"
+            value={this.state.nation}
+            onChange={e => this.setState({ nation: e.target.value })}
+          />commonwealth, europe, italy, usa, pan_asia, france, ussr, germany, uk, japan, pan_america
+          </div>
+          <div>
+          <button onClick={e => this.onFormSubmit(e)}>
+            Submit
+          </button>
+          </div>
+        </div>
+      </form>
         <Bar
           data={this.state.data}
           options={{
             title:{
               display:true,
-              text:'IJN DD Concealments',
+              text:`${this.state.nation} ${this.state.type} Concealments`,
               fontSize:20
             },
             legend:{
