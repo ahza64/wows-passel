@@ -44,10 +44,72 @@ module.exports = function (app) {
         ]
       }
 
-      if (req.params.fields === "hedpm") {
-        state.datasets[0].data = hedpm;
-        state.datasets[0].label = "HE DPM";
+      if (req.params.fields === "concealment") {
+        state.datasets[0].label = "Concealment";
+        var arrayLabel = state.labels;
+        var arrayData = state.datasets[0].data;
+
+        var arrayOfObj = arrayLabel.map(function(d, i) {
+          return {
+            label: d,
+            data: arrayData[i] || 0
+          };
+        });
+
+        var sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
+          let comparison = 0;
+          if (a.data > b.data) {
+            comparison = 1;
+          } else if (a.data < b.data) {
+            comparison = -1;
+          }
+          return comparison;
+        });
+
+        var newArrayLabel = [];
+        var newArrayData = [];
+        sortedArrayOfObj.forEach(function(d){
+          newArrayLabel.push(d.label);
+          newArrayData.push(d.data);
+        });
+
+        state.datasets[0].data = newArrayData;
+        state.labels = newArrayLabel;
       }
+
+      if (req.params.fields === "hedpm") {
+        state.datasets[0].label = "HE DPM";
+        var arrayLabel = state.labels;
+        var arrayData = state.hedpm;
+
+        var arrayOfObj = arrayLabel.map(function(d, i) {
+          return {
+            label: d,
+            data: arrayData[i] || 0
+          };
+        });
+
+        var sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
+          let comparison = 0;
+          if (a.data > b.data) {
+            comparison = 1;
+          } else if (a.data < b.data) {
+            comparison = -1;
+          }
+          return comparison;
+        });
+
+        var newArrayLabel = [];
+        var newArrayData = [];
+        sortedArrayOfObj.forEach(function(d){
+          newArrayLabel.push(d.label);
+          newArrayData.push(d.data);
+        });
+
+        state.datasets[0].data = newArrayData;
+        state.labels = newArrayLabel;
+      }
+
       res.send(state);
     })
     .catch(err => {
