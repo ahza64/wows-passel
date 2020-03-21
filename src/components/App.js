@@ -6,9 +6,11 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      type: "AirCarrier",
+      ships: [],
+      hedps: [288],
+      type: "Cruiser",
       nation: "usa",
-      data: {
+      chartData: {
         labels: ["Arashi"],
         datasets: [
           {
@@ -23,15 +25,58 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount() {
-    fetch(`/api/wg/${this.state.type}/${this.state.nation}`)
+  // componentDidMount() {
+  //   fetch(`/api/wg/${this.state.type}/${this.state.nation}`)
+  //   .then((res) => {
+  //     return res.json();
+  //   })
+  //   .then((data) => {
+  //     console.log(data);
+  //     this.setState({
+  //       ships: data,
+  //       hedps: data.hedps,
+  //       chartData: {
+  //         labels: data.labels,
+  //         datasets: [
+  //           {
+  //             label: 'concealment',
+  //             backgroundColor: 'rgba(75,192,192,1)',
+  //             borderColor: 'rgba(0,0,0,1)',
+  //             borderWidth: 2,
+  //             data: data.datasets[0].data
+  //           }
+  //         ]
+  //       }
+  //     });
+  //   })
+  //   .catch( err => {
+  //     console.log(err);
+  //   })
+  // }
+
+  onFormConcealmentSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.type, this.state.nation);
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}/concealment`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       console.log(data);
       this.setState({
-        data: data
+        ships: data,
+        chartData: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'concealment',
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(0,0,0,1)',
+              borderWidth: 2,
+              data: data.datasets[0].data
+            }
+          ]
+        }
       });
     })
     .catch( err => {
@@ -39,17 +84,30 @@ class App extends React.Component {
     })
   }
 
-  onFormSubmit(e) {
+  onFormHEDPMSubmit(e) {
     e.preventDefault();
     console.log(this.state.type, this.state.nation);
-    fetch(`/api/wg/${this.state.type}/${this.state.nation}`)
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}/hedpm`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       console.log(data);
+
       this.setState({
-        data: data
+        ships: data,
+        chartData: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'HE DPM',
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(0,0,0,1)',
+              borderWidth: 2,
+              data: data.datasets[0].data
+            }
+          ]
+        }
       });
     })
     .catch( err => {
@@ -81,14 +139,17 @@ class App extends React.Component {
           />commonwealth, europe, italy, usa, pan_asia, france, ussr, germany, uk, japan, pan_america
           </div>
           <div>
-          <button onClick={e => this.onFormSubmit(e)}>
-            Submit
-          </button>
+            <button key="1" onClick={e => this.onFormConcealmentSubmit(e)}>
+              Concealment
+            </button>
+            <button key="2" onClick={e => this.onFormHEDPMSubmit(e)}>
+            HE dpm
+            </button>
           </div>
         </div>
       </form>
         <Bar
-          data={this.state.data}
+          data={this.state.chartData}
           options={{
             title:{
               display:true,
