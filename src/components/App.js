@@ -10,6 +10,7 @@ class App extends React.Component {
       hedps: [288],
       type: "Cruiser",
       nation: "usa",
+      field: "concealments",
       chartData: {
         labels: ["Arashi"],
         datasets: [
@@ -64,6 +65,7 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
       this.setState({
+        field: "concealments",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -95,6 +97,7 @@ class App extends React.Component {
       console.log(data);
 
       this.setState({
+        field: "HE DPM",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -153,7 +156,7 @@ class App extends React.Component {
           options={{
             title:{
               display:true,
-              text:`${this.state.nation} ${this.state.type} Concealments`,
+              text:`${this.state.nation} ${this.state.type} ${this.state.field}`,
               fontSize:20
             },
             legend:{
