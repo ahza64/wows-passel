@@ -3,6 +3,7 @@ import {Bar} from 'react-chartjs-2';
 import {Form} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
+import {Container} from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -156,6 +157,7 @@ class App extends React.Component {
   render() {
     return (
     <div>
+    <Container>
       <h1>World of Warships data visualisation</h1>
       <p>
         click a button, to retrive and graph data from WG api
@@ -199,6 +201,7 @@ class App extends React.Component {
           HE Alpha α
         </Button>
       </Form>
+      </Container>
 
         <Bar
           data={this.state.chartData}
