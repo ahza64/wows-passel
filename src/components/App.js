@@ -1,5 +1,8 @@
 import React from 'react';
 import {Bar} from 'react-chartjs-2';
+import {Form} from 'react-bootstrap';
+import {Col} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 class App extends React.Component {
   constructor(props) {
@@ -125,37 +128,43 @@ class App extends React.Component {
       <p>
         click a button, to retrive and graph data from WG api
       </p>
-      <form onSubmit={e => this.onFormSubmit(e)}>
-        <div>
-          <div>
-          <div>
-          Click a value
-          </div>
-          <button key="1" onClick={e => this.onFormConcealmentSubmit(e)}>
-          Concealment
-          </button>
-          <button key="2" onClick={e => this.onFormHEDPMSubmit(e)}>
-          HE dpm
-          </button>
-          </div>
-          <div>
-          <label>Class: </label>
-          <input
-            type="text"
-            value={this.state.type}
-            onChange={e => this.setState({ type: e.target.value })}
-          /> Valid entries: Destroyer, Cruiser, Battleship, AirCarrier
-          </div>
-          <div>
-          <label>Nation: </label>
-          <input
-            type="text"
-            value={this.state.nation}
-            onChange={e => this.setState({ nation: e.target.value })}
-          /> Valid entires: commonwealth, europe, italy, usa, pan_asia, france, ussr, germany, uk, japan, pan_america
-          </div>
-        </div>
-      </form>
+      <Form>
+        <Form.Row>
+          <Form.Group as={Col} controlId="formGridCity">
+            <Form.Label>Class</Form.Label>
+            <Form.Control as="select" onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
+              <option>Destroyer</option>
+              <option>Cruiser</option>
+              <option>Battleship</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group as={Col} controlId="formGridState">
+            <Form.Label>Nation</Form.Label>
+            <Form.Control as="select" onChange={e => this.setState({ nation: e.target.value })} value={this.state.nation}>
+              <option>commonwealth</option>
+              <option>europe</option>
+              <option>italy</option>
+              <option>usa</option>
+              <option>pan_asia</option>
+              <option>france</option>
+              <option>ussr</option>
+              <option>germany</option>
+              <option>uk</option>
+              <option>japan</option>
+              <option>pan_america</option>
+            </Form.Control>
+          </Form.Group>
+        </Form.Row>
+
+        <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
+          Concealments
+        </Button>
+        <Button variant="primary" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
+          HE DPM
+        </Button>
+      </Form>
+
         <Bar
           data={this.state.chartData}
           options={{
