@@ -29,34 +29,34 @@ class App extends React.Component {
     }
   }
 
-  // componentDidMount() {
-  //   fetch(`/api/wg/${this.state.type}/${this.state.nation}`)
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     console.log(data);
-  //     this.setState({
-  //       ships: data,
-  //       hedps: data.hedps,
-  //       chartData: {
-  //         labels: data.labels,
-  //         datasets: [
-  //           {
-  //             label: 'concealment',
-  //             backgroundColor: 'rgba(75,192,192,1)',
-  //             borderColor: 'rgba(0,0,0,1)',
-  //             borderWidth: 2,
-  //             data: data.datasets[0].data
-  //           }
-  //         ]
-  //       }
-  //     });
-  //   })
-  //   .catch( err => {
-  //     console.log(err);
-  //   })
-  // }
+  componentDidMount() {
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}/hedpm`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+      this.setState({
+        field: "HE DPM",
+        ships: data,
+        chartData: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'HE DPM',
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(0,0,0,1)',
+              borderWidth: 2,
+              data: data.datasets[0].data
+            }
+          ]
+        }
+      });
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
 
   onFormConcealmentSubmit(e) {
     e.preventDefault();
@@ -68,13 +68,13 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
       this.setState({
-        field: "concealments",
+        field: "Concealments",
         ships: data,
         chartData: {
           labels: data.labels,
           datasets: [
             {
-              label: 'concealment',
+              label: 'Concealment',
               backgroundColor: 'rgba(75,192,192,1)',
               borderColor: 'rgba(0,0,0,1)',
               borderWidth: 2,
@@ -107,6 +107,38 @@ class App extends React.Component {
           datasets: [
             {
               label: 'HE DPM',
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(0,0,0,1)',
+              borderWidth: 2,
+              data: data.datasets[0].data
+            }
+          ]
+        }
+      });
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
+  onFormHEAlphaSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.type, this.state.nation);
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}/healpha`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+
+      this.setState({
+        field: "HE alpha",
+        ships: data,
+        chartData: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'HE alpha',
               backgroundColor: 'rgba(75,192,192,1)',
               borderColor: 'rgba(0,0,0,1)',
               borderWidth: 2,
@@ -162,6 +194,9 @@ class App extends React.Component {
         </Button>
         <Button variant="primary" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
           HE DPM
+        </Button>
+        <Button variant="primary" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
+          HE Alpha α
         </Button>
       </Form>
 

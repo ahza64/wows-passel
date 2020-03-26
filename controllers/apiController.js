@@ -8,6 +8,7 @@ module.exports = function (app) {
     var names = [];
     var concealments = [];
     var hedpm = [];
+    var healpha = [];
     var apdpm = [];
     fetch(url)
     .then(response => {
@@ -21,6 +22,7 @@ module.exports = function (app) {
           var dmg = data[prop].default_profile.artillery.shells.HE.damage;
           var numBarr = data[prop].default_profile.artillery.slots[0].guns * data[prop].default_profile.artillery.slots[0].barrels;
           hedpm.push(((dmg * 60) / rof) * numBarr);
+          healpha.push(numBarr * dmg);
         }else{
           hedpm.push(1);
         }
@@ -32,6 +34,7 @@ module.exports = function (app) {
     .then(data => {
       const state = {
         hedpm: hedpm,
+        healpha: healpha,
         labels: names,
         datasets: [
           {
@@ -81,6 +84,39 @@ module.exports = function (app) {
         state.datasets[0].label = "HE DPM";
         var arrayLabel = state.labels;
         var arrayData = state.hedpm;
+
+        var arrayOfObj = arrayLabel.map(function(d, i) {
+          return {
+            label: d,
+            data: arrayData[i] || 0
+          };
+        });
+
+        var sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
+          let comparison = 0;
+          if (a.data > b.data) {
+            comparison = 1;
+          } else if (a.data < b.data) {
+            comparison = -1;
+          }
+          return comparison;
+        });
+
+        var newArrayLabel = [];
+        var newArrayData = [];
+        sortedArrayOfObj.forEach(function(d){
+          newArrayLabel.push(d.label);
+          newArrayData.push(d.data);
+        });
+
+        state.datasets[0].data = newArrayData;
+        state.labels = newArrayLabel;
+      }
+
+      if (req.params.fields === "healpha") {
+        state.datasets[0].label = "HE alpha";
+        var arrayLabel = state.labels;
+        var arrayData = state.healpha;
 
         var arrayOfObj = arrayLabel.map(function(d, i) {
           return {
