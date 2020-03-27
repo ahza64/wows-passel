@@ -158,13 +158,15 @@ class App extends React.Component {
 
   render() {
     return (
-    <div id="go" >
+    <div id="background" >
     <Container>
-      <h1>World of Warships data visualisation</h1>
+      <h1 id="title">World of Warships data visualisation</h1>
+      <div id="form">
       <p>
         click a button, to retrive and graph data from WG api
       </p>
-      <Form>
+
+      <Form >
         <Form.Row>
           <Form.Group as={Col} controlId="formGridCity">
             <Form.Label>Class</Form.Label>
@@ -196,16 +198,16 @@ class App extends React.Component {
         <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
           Concealments
         </Button>
-        <Button variant="primary" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
+        <Button variant="warning" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
           HE DPM
         </Button>
-        <Button variant="primary" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
+        <Button variant="danger" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
           HE Alpha α
         </Button>
       </Form>
-      </Container>
+      </div>
 
-        <Bar
+        <Bar id="container"
           data={this.state.chartData}
           options={{
             title:{
@@ -219,6 +221,7 @@ class App extends React.Component {
             }
           }}
         />
+        </Container>
       </div>
 
   )

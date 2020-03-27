@@ -12,8 +12,20 @@ code {
     monospace;
 } */
 
-#go {
+#title {
+  color: gold;
+}
+#background {
   background-image: url(./images/cherry-wallpaper.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
+  text-align: center;
+}
+
+#form {
+  background: rgba(200, 200, 200, 0.5);
+}
+
+#container {
+  background: rgba(200, 200, 200, 0.1);
 }
