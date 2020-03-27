@@ -5,6 +5,8 @@ import {Col} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {Container} from 'react-bootstrap';
 
+import '../index.css';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -156,7 +158,7 @@ class App extends React.Component {
 
   render() {
     return (
-    <div>
+    <div id="go" >
     <Container>
       <h1>World of Warships data visualisation</h1>
       <p>
