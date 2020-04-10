@@ -19,10 +19,10 @@ module.exports = function (app) {
       var data = data.data;
       for (const prop in data) {
         if (data[prop].default_profile.artillery.shells.HE !== undefined) {
-          var rof = data[prop].default_profile.artillery.shot_delay;
+          var rof = data[prop].default_profile.artillery.gun_rate;
           var dmg = data[prop].default_profile.artillery.shells.HE.damage;
           var numBarr = data[prop].default_profile.artillery.slots[0].guns * data[prop].default_profile.artillery.slots[0].barrels;
-          hedpm.push(((dmg * 60) / rof) * numBarr);
+          hedpm.push(dmg * rof * numBarr);
           healpha.push(numBarr * dmg);
         }else{
           hedpm.push(1);
