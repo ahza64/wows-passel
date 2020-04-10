@@ -156,6 +156,38 @@ class App extends React.Component {
     })
   }
 
+  onFormTraverseSubmit(e) {
+    e.preventDefault();
+    console.log(this.state.type, this.state.nation);
+    fetch(`/api/wg/${this.state.type}/${this.state.nation}/traverse`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+
+      this.setState({
+        field: "Turret Traverse",
+        ships: data,
+        chartData: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: 'Turret Traverse',
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(0,0,0,1)',
+              borderWidth: 2,
+              data: data.datasets[0].data
+            }
+          ]
+        }
+      });
+    })
+    .catch( err => {
+      console.log(err);
+    })
+  }
+
   render() {
     return (
     <div id="background" >
@@ -203,6 +235,9 @@ class App extends React.Component {
         </Button>
         <Button variant="danger" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
           HE Alpha α
+        </Button>
+        <Button variant="secondary" type="submit" onClick={e => this.onFormTraverseSubmit(e)}>
+          Turret Traverse
         </Button>
       </Form>
       </div>

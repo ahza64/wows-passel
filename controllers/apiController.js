@@ -10,6 +10,7 @@ module.exports = function (app) {
     var hedpm = [];
     var healpha = [];
     var apdpm = [];
+    var traverse = [];
     fetch(url)
     .then(response => {
       return response.json();
@@ -28,6 +29,7 @@ module.exports = function (app) {
         }
         names.push(data[prop].name);
         concealments.push(data[prop].default_profile.concealment.detect_distance_by_ship);
+        traverse.push(data[prop].default_profile.artillery.rotation_time);
       }
 
     })
@@ -35,6 +37,7 @@ module.exports = function (app) {
       const state = {
         hedpm: hedpm,
         healpha: healpha,
+        traverse: traverse,
         labels: names,
         datasets: [
           {
@@ -117,6 +120,39 @@ module.exports = function (app) {
         state.datasets[0].label = "HE alpha";
         var arrayLabel = state.labels;
         var arrayData = state.healpha;
+
+        var arrayOfObj = arrayLabel.map(function(d, i) {
+          return {
+            label: d,
+            data: arrayData[i] || 0
+          };
+        });
+
+        var sortedArrayOfObj = arrayOfObj.sort(function(a, b) {
+          let comparison = 0;
+          if (a.data > b.data) {
+            comparison = 1;
+          } else if (a.data < b.data) {
+            comparison = -1;
+          }
+          return comparison;
+        });
+
+        var newArrayLabel = [];
+        var newArrayData = [];
+        sortedArrayOfObj.forEach(function(d){
+          newArrayLabel.push(d.label);
+          newArrayData.push(d.data);
+        });
+
+        state.datasets[0].data = newArrayData;
+        state.labels = newArrayLabel;
+      }
+
+      if (req.params.fields === "traverse") {
+        state.datasets[0].label = "Turret Traverse";
+        var arrayLabel = state.labels;
+        var arrayData = state.traverse;
 
         var arrayOfObj = arrayLabel.map(function(d, i) {
           return {
