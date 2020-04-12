@@ -3,7 +3,7 @@ const db = require('../models/ship.js');
 
 module.exports = function (app) {
   app.get('/db/updateDB', function (req, res) {
-    console.log("get ships pinged");
+    console.log("update DB pinged");
     let shipStore = [];
     let pageCount = 1;
 
@@ -64,18 +64,18 @@ module.exports = function (app) {
   });
 
   function createShip(ships_list) {
-db.remove({}, function(err, ships){
-  if(err) {
-    console.log('Error occurred in ships remove', err);
-  } else {
-    console.log('removed all ships');
-    db.create(ships_list, function(err, ships){
-      if (err) { return console.log('err', err); }
-      console.log("created", ships.length, "ships");
-      // process.exit();
+    db.remove({}, function(err, ships){
+      if(err) {
+        console.log('Error occurred in ships remove', err);
+      } else {
+        console.log('removed all ships');
+        db.create(ships_list, function(err, ships){
+          if (err) { return console.log('err', err); }
+          console.log("created", ships.length, "ships");
+          // process.exit();
+        });
+      }
     });
   }
-});
-}
 
 };

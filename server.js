@@ -7,7 +7,8 @@ const port = process.env.PORT || 8080;
 const app = express();
 
 const apiController = require('./controllers/apiController.js');
-const dbController = require('./controllers/dbController.js');
+const dbUpdateController = require('./controllers/dbUpdateController.js');
+const shipController = require('./controllers/shipController.js');
 
 require('dotenv').config();
 
@@ -18,7 +19,8 @@ app.get('/', function (req, res) {
 });
 
 apiController(app);
-dbController(app);
+dbUpdateController(app);
+shipController(app);
 
 mongoose.connect( process.env.MONGODB_URI ||
                   process.env.MONGOHQ_URL ||

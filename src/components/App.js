@@ -193,6 +193,23 @@ class App extends React.Component {
     fetch(`/db/updateDB`)
     .then((data) => {
       console.log("update successful");
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  testDBQueryButton(e) {
+    e.preventDefault();
+    fetch(`/ships/cruiser/5/concealment`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+    })
+    .catch( err => {
+      console.log(err);
     });
   }
 
@@ -200,7 +217,10 @@ class App extends React.Component {
     return (
     <div id="background" >
     <Container>
-      <h1 id="title">World of Warships data visualisation <Button variant="outline-secondary" onClick={e => this.updateDB(e)}>update DB</Button></h1>
+      <h1 id="title">World of Warships data visualisation
+        <Button variant="outline-secondary" onClick={e => this.updateDB(e)}>update DB</Button>
+        <Button variant="outline-secondary" onClick={e => this.testDBQueryButton(e)}>test</Button>
+      </h1>
       <div id="form">
       <p>
         click a button, to retrive and graph data from WG api
