@@ -188,11 +188,19 @@ class App extends React.Component {
     })
   }
 
+  updateDB(e) {
+    e.preventDefault();
+    fetch(`/db/updateDB`)
+    .then((data) => {
+      console.log("update successful");
+    });
+  }
+
   render() {
     return (
     <div id="background" >
     <Container>
-      <h1 id="title">World of Warships data visualisation</h1>
+      <h1 id="title">World of Warships data visualisation <Button variant="outline-secondary" onClick={e => this.updateDB(e)}>update DB</Button></h1>
       <div id="form">
       <p>
         click a button, to retrive and graph data from WG api

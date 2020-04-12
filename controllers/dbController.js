@@ -2,7 +2,7 @@ const fetch = require('node-fetch');
 const db = require('../models/ship.js');
 
 module.exports = function (app) {
-  app.get('/db/updateShips', function (req, res) {
+  app.get('/db/updateDB', function (req, res) {
     console.log("get ships pinged");
     let shipStore = [];
     let pageCount = 1;
@@ -36,7 +36,9 @@ module.exports = function (app) {
     // refactor to pick up data from dedicated DB, GET WG API data and transpose to dedicated DB
     function getNextPage(n) {
       fetch('https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + process.env.WOWS_APP_ID + '&page_no=' + n)
-
+      .then((res) => {
+        return res.json()
+      })
       .then((resJson) => {
         function convertObjectToArray(resJsonData) {
           return Object.keys(resJsonData).map(function(k) {
