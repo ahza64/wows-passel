@@ -1,10 +1,6 @@
-const fetch = require('node-fetch');
-const db = require('../../models/ship.js');
-const express = require('express');
-const router = express.Router();
+const db = require('../models/ship.js');
 
-
-router.get('/ships/:type/:tier/:field', function (req, res) {
+exports.shipsGet = function (req, res) {
   console.log("get ships pinged", req.params.type);
   db.find({ tier: req.params.tier,  type: req.params.type})
   .exec(function(err, ships){
@@ -15,6 +11,4 @@ router.get('/ships/:type/:tier/:field', function (req, res) {
 
     res.send(ships);
   });
-});
-
-module.exports = router;
+};
