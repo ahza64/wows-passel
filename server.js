@@ -7,8 +7,8 @@ const port = process.env.PORT || 8080;
 const app = express();
 const router = express.Router();
 
-const apiWGController = require('./backend/routes/wgAPI/apiWGRoutes.js');
-const dbUpdateController = require('./backend/routes/shipsDB/dbUpdateRoutes.js');
+const apiWGRouter = require('./backend/routes/wgAPI/apiWGRoutes.js');
+const dbUpdateRouter = require('./backend/routes/shipsDB/dbUpdateRoutes.js');
 const shipsRouter = require('./backend/routes/shipsDB/shipsRoutes.js');
 
 require('dotenv').config();
@@ -20,8 +20,8 @@ app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-apiWGController(app);
-dbUpdateController(app);
+apiWGRouter(app);
+dbUpdateRouter(app);
 router.get('/ships/:type/:tier/:field', shipsRouter)
 
 mongoose.connect( process.env.MONGODB_URI ||
