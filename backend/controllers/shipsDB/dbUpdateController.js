@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
 module.exports = function (app) {
   app.get('/db/updateDB', function (req, res) {

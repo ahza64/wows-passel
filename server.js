@@ -6,9 +6,9 @@ const port = process.env.PORT || 8080;
 
 const app = express();
 
-const apiController = require('./controllers/apiController.js');
-const dbUpdateController = require('./controllers/dbUpdateController.js');
-const shipController = require('./controllers/shipController.js');
+const apiController = require('./backend/controllers/wgAPI/apiController.js');
+const dbUpdateController = require('./backend/controllers/shipsDB/dbUpdateController.js');
+const shipController = require('./backend/controllers/shipsDB/shipController.js');
 
 require('dotenv').config();
 
