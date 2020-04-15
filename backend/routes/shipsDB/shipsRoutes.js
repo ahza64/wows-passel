@@ -5,6 +5,6 @@ const shipsController = require('../../controllers/shipsController.js');
 const router = express.Router();
 
 
-router.get('/ships/:type/:tier/:field', shipsController.shipsGet);
+router.get('/ships/concealments/:tier/:type', shipsController.shipsConcealments);
 
 module.exports = router;

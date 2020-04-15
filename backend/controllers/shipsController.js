@@ -1,14 +1,58 @@
 const db = require('../models/ship.js');
 
-exports.shipsGet = function (req, res) {
-  console.log("get ships pinged", req.params.type);
-  db.find({ tier: req.params.tier,  type: req.params.type})
+exports.shipsConcealments = function (req, res) {
+  console.log("get ships concealments pinged", req.params.type);
+  let query = {
+    tier: parseInt(req.params.tier),
+    type: req.params.type
+  };
+  let neededShipParams = {
+    name: 1,
+    "default_profile.concealment.detect_distance_by_ship": 1
+
+  };
+  let aggregate = {
+    "default_profile.concealment.detect_distance_by_ship": 1
+  };
+  let pipeline = [
+    {$match: query},
+    {$project: neededShipParams}
+
+  ]
+
+  db.aggregate(pipeline)
   .exec(function(err, ships){
+    console.log(ships);
     if (err || !ships || !ships.length) {
-      return res.status(404).send({message: 'Ships not found.'});
+      return res.status(404).send({message: 'Ships not found.', err});
     }
-    console.log("ships", ships, `tier ${req.params.tier} class ${req.params.type}`);
+
+    // var labels = [];
+    // var data = [];
+    // ships.forEach(function(ship) {
+    //   labels.push(ship.name);
+    //   data.push(ship.default_profile.concealment.detect_distance_by_ship);
+    //
+    // });
+
+  // db.find(query, projection).sort(aggregate)
+  // .exec(function(err, ships){
+  //   if (err || !ships || !ships.length) {
+  //     return res.status(404).send({message: 'Ships not found.'});
+  //   }
+  //
+  //   var labels = [];
+  //   var data = [];
+  //   ships.forEach(function(ship) {
+  //     labels.push(ship.name);
+  //     data.push(ship.default_profile.concealment.detect_distance_by_ship);
+  //
+  //   });
+    // i can't deal with these errors anymore, giving up for now. just trying to format data here...
+// aggregate pipeline db.aggregate(pipeline) var pipeline = [{$group: { count: {$sum: 1}}}]
+    // console.log("inside the loop", ships);
 
     res.send(ships);
   });
+
 };

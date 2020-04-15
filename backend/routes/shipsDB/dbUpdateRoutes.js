@@ -70,9 +70,12 @@ module.exports = function (app) {
       } else {
         console.log('removed all ships');
         db.create(ships_list, function(err, ships){
-          if (err) { return console.log('err', err); }
+          if (err) {
+            return console.log('err', err);
+          }
           console.log("created", ships.length, "ships");
           // process.exit();
+
         });
       }
     });

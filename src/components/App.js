@@ -201,7 +201,7 @@ class App extends React.Component {
 
   testDBQueryButton(e) {
     e.preventDefault();
-    fetch(`/ships/Cruiser/5/concealment`)
+    fetch(`/ships/concealments/5/Cruiser`)
     .then((res) => {
       return res.json();
     })
