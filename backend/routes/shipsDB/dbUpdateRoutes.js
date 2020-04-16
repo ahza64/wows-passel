@@ -12,7 +12,7 @@ module.exports = function (app) {
       return res.json()
     })
     .then((resJson) => {
-      console.log("resJson", resJson);
+      console.log("resJson", resJson, "resJson");
       function convertObjectToArray(resJsonData) {
         return Object.keys(resJsonData).map(function(k) {
           return resJsonData[k]

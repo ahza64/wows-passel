@@ -60,7 +60,7 @@ var shipSchema = new Schema({
       artillery_id: Number,
       artillery_id_str: String,
       shells: {
-        ap: {
+        AP: {
           bullet_mass: Number,
           bullet_speed: Number,
           burn_probability: Number,
@@ -68,7 +68,7 @@ var shipSchema = new Schema({
           name: String,
           type: String
         },
-        he: {
+        HE: {
           bullet_mass: Number,
           bullet_speed: Number,
           burn_probability: Number,
@@ -165,7 +165,7 @@ var shipSchema = new Schema({
     }
   },
   upgrades: Array
-});
+}, { typeKey: '$type' });
 
 var Ship = mongoose.model('Ship', shipSchema);
 module.exports = Ship;
