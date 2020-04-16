@@ -1,28 +1,51 @@
 const db = require('../models/ship.js');
 
-exports.shipsConcealments = function (req, res) {
-  console.log("get ships concealments pinged", req.params.type);
-
+exports.shipsHEDPM = function (req, res) {
+  console.log("get ships hedpm by tier pinged", req.params.type);
+//rof = data[prop].default_profile.artillery.gun_rate;
+//var dmg = data[prop].default_profile.artillery.shells.HE.damage;
+//numBarr = data[prop].default_profile.artillery.slots[0].guns * data[prop].default_profile.artillery.slots[0].barrels;
+//
   let query = {
     tier: parseInt(req.params.tier),
     type: req.params.type
   };
   let neededShipParams = {
-    name: 1,
-    "default_profile.concealment.detect_distance_by_ship": 1
+    "name": 1,
+    "default_profile.artillery": 1,
+    "default_profile.artillery.slots[0].guns": 1,
+    "default_profile.artillery.slots[0].barrels": 1,
+    "default_profile.artillery.gun_rate": 1
   };
   // let aggregate = {
   //   "default_profile.concealment.detect_distance_by_ship": 1
   // };
   let pipeline = [
+
+    {$project: {
+      "name": 1,
+      "type": 1,
+      "tier": 1,
+      "default_profile.artillery": 1,
+      "default_profile.artillery.slots[0].guns": 1,
+      "default_profile.artillery.slots[0].barrels": 1,
+      "default_profile.artillery.gun_rate": 1,
+      "hedpm": {
+        $multiply: [
+          "$default_profile.artillery.shells.HE.damage",
+          "$default_profile.artillery.slots[0].guns",
+          "$default_profile.artillery.slots[0].barrels",
+          "$default_profile.artillery.gun_rate"
+        ]
+      }
+    }},
     {$match: query},
-    {$project: neededShipParams},
-    {$sort: {"default_profile.concealment.detect_distance_by_ship": 1}}
+    {$sort: {"$default_profile.concealment.detect_distance_by_ship": 1}}
   ]
 
   db.aggregate(pipeline)
   .exec(function(err, ships){
-    console.log(ships[0]);
+    console.log(ships);
     if (err || !ships || !ships.length) {
       return res.status(404).send({message: 'Ships not found.', err});
     }

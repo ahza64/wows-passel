@@ -1,6 +1,6 @@
 const db = require('../models/ship.js');
 
-exports.shipsConcealments = function (req, res) {
+exports.shipsTraverse = function (req, res) {
   console.log("get ships concealments pinged", req.params.type);
 
   let query = {
@@ -9,7 +9,7 @@ exports.shipsConcealments = function (req, res) {
   };
   let neededShipParams = {
     name: 1,
-    "default_profile.concealment.detect_distance_by_ship": 1
+    "default_profile.artillery.rotation_time": 1
   };
   // let aggregate = {
   //   "default_profile.concealment.detect_distance_by_ship": 1
@@ -17,7 +17,7 @@ exports.shipsConcealments = function (req, res) {
   let pipeline = [
     {$match: query},
     {$project: neededShipParams},
-    {$sort: {"default_profile.concealment.detect_distance_by_ship": 1}}
+    {$sort: {"default_profile.artillery.rotation_time": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -31,7 +31,7 @@ exports.shipsConcealments = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.default_profile.concealment.detect_distance_by_ship);
+      data.push(ship.default_profile.artillery.rotation_time);
 
     });
 

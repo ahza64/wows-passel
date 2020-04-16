@@ -3,6 +3,7 @@ import {Bar} from 'react-chartjs-2';
 import {Form} from 'react-bootstrap';
 import {Col} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
+import {ButtonGroup} from 'react-bootstrap';
 import {Container} from 'react-bootstrap';
 
 import '../index.css';
@@ -16,6 +17,7 @@ class App extends React.Component {
       hedps: [288],
       type: "Cruiser",
       nation: "usa",
+      tier: 3,
       field: "sample, click buttons above to retireve and render more data",
       chartData: {
         labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
@@ -199,14 +201,68 @@ class App extends React.Component {
     });
   }
 
-  testDBQueryButton(e) {
+  onFormSubmitConcealmentsByTier(e) {
     e.preventDefault();
-    fetch(`/ships/concealments/5/Cruiser`)
+    fetch(`/ships/concealments/bytier/${this.state.tier}/${this.state.type}`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       console.log("update successful", data);
+      this.setState({
+        chartData: data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  onFormSubmitHEDPMByTier(e) {
+    e.preventDefault();
+    fetch(`/ships/hedpm/bytier/${this.state.tier}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  onFormSubmitHEAlphaByTier(e) {
+    e.preventDefault();
+    fetch(`/ships/healpha/bytier/${this.state.tier}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  onFormSubmitTraverseByTier(e) {
+    e.preventDefault();
+    fetch(`/ships/traverse/bytier/${this.state.tier}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data
+      })
     })
     .catch( err => {
       console.log(err);
@@ -253,20 +309,52 @@ class App extends React.Component {
               <option>pan_america</option>
             </Form.Control>
           </Form.Group>
+          <Form.Group as={Col} controlId="formGridState">
+            <Form.Label>Tier</Form.Label>
+            <Form.Control as="select" onChange={e => this.setState({ tier: e.target.value })} value={this.state.tier}>
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              <option>6</option>
+              <option>7</option>
+              <option>8</option>
+              <option>9</option>
+              <option>10</option>
+            </Form.Control>
+          </Form.Group>
         </Form.Row>
-
-        <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
-          Concealments
-        </Button>
-        <Button variant="warning" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
-          HE DPM
-        </Button>
-        <Button variant="danger" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
-          HE Alpha α
-        </Button>
-        <Button variant="secondary" type="submit" onClick={e => this.onFormTraverseSubmit(e)}>
-          Turret Traverse
-        </Button>
+        <div>by tier</div>
+        <ButtonGroup>
+          <Button variant="primary" type="submit" onClick={e => this.onFormSubmitConcealmentsByTier(e)}>
+            Concealments
+          </Button>
+          <Button variant="warning" type="submit" onClick={e => this.onFormSubmitHEDPMByTier(e)}>
+            HE DPM
+          </Button>
+          <Button variant="danger" type="submit" onClick={e => this.onFormSubmitHEAlphaByTier(e)}>
+            HE Alpha α
+          </Button>
+          <Button variant="secondary" type="submit" onClick={e => this.onFormSubmitTraverseByTier(e)}>
+            Turret Traverse
+          </Button>
+        </ButtonGroup>
+        <div>by nation</div>
+        <ButtonGroup>
+          <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
+            Concealments
+          </Button>
+          <Button variant="warning" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
+            HE DPM
+          </Button>
+          <Button variant="danger" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
+            HE Alpha α
+          </Button>
+          <Button variant="secondary" type="submit" onClick={e => this.onFormTraverseSubmit(e)}>
+            Turret Traverse
+          </Button>
+        </ButtonGroup>
       </Form>
       </div>
 

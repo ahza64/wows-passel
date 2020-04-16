@@ -76,6 +76,13 @@ var shipSchema = new Schema({
           name: String,
           type: String
         }
+      },
+      slots: {
+        0: {
+            barrels: Number,
+            name: String,
+            guns: Number
+        }
       }
     },
     atbas: {
