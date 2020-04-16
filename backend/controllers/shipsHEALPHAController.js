@@ -2,8 +2,7 @@ const db = require('../models/ship.js');
 
 exports.shipsHEAlpha = function (req, res) {
   console.log("get ships concealments pinged", req.params.type);
-//numBarr = data[prop].default_profile.artillery.slots[0].guns * data[prop].default_profile.artillery.slots[0].barrels;
-//
+
   let query = {
     tier: parseInt(req.params.tier),
     type: req.params.type
@@ -16,9 +15,21 @@ exports.shipsHEAlpha = function (req, res) {
   //   "default_profile.concealment.detect_distance_by_ship": 1
   // };
   let pipeline = [
+    {$project: {
+      "name": 1,
+      "type": 1,
+      "tier": 1,
+      "default_profile.artillery": 1,
+      "healpha": {
+        $multiply: [
+          "$default_profile.artillery.shells.HE.damage",
+          "$default_profile.artillery.slots.0.guns",
+          "$default_profile.artillery.slots.0.barrels"
+        ]
+      }
+    }},
     {$match: query},
-    {$project: neededShipParams},
-    {$sort: {"default_profile.concealment.detect_distance_by_ship": 1}}
+    {$sort: {"healpha": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -32,7 +43,7 @@ exports.shipsHEAlpha = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.default_profile.concealment.detect_distance_by_ship);
+      data.push(ship.healpha);
 
     });
 
