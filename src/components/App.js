@@ -277,86 +277,6 @@ class App extends React.Component {
         <Button variant="outline-secondary" onClick={e => this.updateDB(e)}>update DB</Button>
         <Button variant="outline-secondary" onClick={e => this.testDBQueryButton(e)}>test</Button>
       </h1>
-      <div id="form">
-      <p>
-        click a button, to retrive and graph data from WG api
-      </p>
-
-      <Form >
-        <Form.Row>
-          <Form.Group as={Col} controlId="formGridCity">
-            <Form.Label>Class</Form.Label>
-            <Form.Control as="select" onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
-              <option>Destroyer</option>
-              <option>Cruiser</option>
-              <option>Battleship</option>
-            </Form.Control>
-          </Form.Group>
-
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Nation</Form.Label>
-            <Form.Control as="select" onChange={e => this.setState({ nation: e.target.value })} value={this.state.nation}>
-              <option>commonwealth</option>
-              <option>europe</option>
-              <option>italy</option>
-              <option>usa</option>
-              <option>pan_asia</option>
-              <option>france</option>
-              <option>ussr</option>
-              <option>germany</option>
-              <option>uk</option>
-              <option>japan</option>
-              <option>pan_america</option>
-            </Form.Control>
-          </Form.Group>
-          <Form.Group as={Col} controlId="formGridState">
-            <Form.Label>Tier</Form.Label>
-            <Form.Control as="select" onChange={e => this.setState({ tier: e.target.value })} value={this.state.tier}>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-              <option>6</option>
-              <option>7</option>
-              <option>8</option>
-              <option>9</option>
-              <option>10</option>
-            </Form.Control>
-          </Form.Group>
-        </Form.Row>
-        <div>by tier</div>
-        <ButtonGroup>
-          <Button variant="primary" type="submit" onClick={e => this.onFormSubmitConcealmentsByTier(e)}>
-            Concealments
-          </Button>
-          <Button variant="warning" type="submit" onClick={e => this.onFormSubmitHEDPMByTier(e)}>
-            HE DPM
-          </Button>
-          <Button variant="danger" type="submit" onClick={e => this.onFormSubmitHEAlphaByTier(e)}>
-            HE Alpha α
-          </Button>
-          <Button variant="secondary" type="submit" onClick={e => this.onFormSubmitTraverseByTier(e)}>
-            Turret Traverse
-          </Button>
-        </ButtonGroup>
-        <div>by nation</div>
-        <ButtonGroup>
-          <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
-            Concealments
-          </Button>
-          <Button variant="warning" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
-            HE DPM
-          </Button>
-          <Button variant="danger" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
-            HE Alpha α
-          </Button>
-          <Button variant="secondary" type="submit" onClick={e => this.onFormTraverseSubmit(e)}>
-            Turret Traverse
-          </Button>
-        </ButtonGroup>
-      </Form>
-      </div>
 
         <Bar id="container"
           data={this.state.chartData}
@@ -372,6 +292,90 @@ class App extends React.Component {
             }
           }}
         />
+
+        <div id="form">
+        <p>
+          click a button, to retrive and graph data from WG api
+        </p>
+
+        <Form >
+          <Form.Row>
+            <Form.Group as={Col} controlId="formGridCity">
+              <Form.Label>Class</Form.Label>
+              <Form.Control as="select" onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
+                <option>Destroyer</option>
+                <option>Cruiser</option>
+                <option>Battleship</option>
+              </Form.Control>
+            </Form.Group>
+
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Nation</Form.Label>
+              <Form.Control as="select" onChange={e => this.setState({ nation: e.target.value })} value={this.state.nation}>
+                <option>commonwealth</option>
+                <option>europe</option>
+                <option>italy</option>
+                <option>usa</option>
+                <option>pan_asia</option>
+                <option>france</option>
+                <option>ussr</option>
+                <option>germany</option>
+                <option>uk</option>
+                <option>japan</option>
+                <option>pan_america</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Tier</Form.Label>
+              <Form.Control as="select" onChange={e => this.setState({ tier: e.target.value })} value={this.state.tier}>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </Form.Control>
+            </Form.Group>
+          </Form.Row>
+          <div>by tier</div>
+          <ButtonGroup>
+            <Button variant="primary" type="submit" onClick={e => this.onFormSubmitConcealmentsByTier(e)}>
+              Concealments
+            </Button>
+            <Button variant="warning" type="submit" onClick={e => this.onFormSubmitHEDPMByTier(e)}>
+              HE DPM
+            </Button>
+            <Button variant="danger" type="submit" onClick={e => this.onFormSubmitHEAlphaByTier(e)}>
+              HE Alpha α
+            </Button>
+            <Button variant="secondary" type="submit" onClick={e => this.onFormSubmitTraverseByTier(e)}>
+              Turret Traverse
+            </Button>
+          </ButtonGroup>
+          <div>by nation</div>
+          <ButtonGroup>
+            <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
+              Concealments
+            </Button>
+            <Button variant="warning" type="submit" onClick={e => this.onFormHEDPMSubmit(e)}>
+              HE DPM
+            </Button>
+            <Button variant="danger" type="submit" onClick={e => this.onFormHEAlphaSubmit(e)}>
+              HE Alpha α
+            </Button>
+            <Button variant="secondary" type="submit" onClick={e => this.onFormTraverseSubmit(e)}>
+              Turret Traverse
+            </Button>
+          </ButtonGroup>
+        </Form>
+        </div>
+<div>,</div>
+<div>,</div>
+<div>,</div>
         </Container>
       </div>
 
