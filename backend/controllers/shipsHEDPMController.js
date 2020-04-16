@@ -10,13 +10,13 @@ exports.shipsHEDPM = function (req, res) {
     tier: parseInt(req.params.tier),
     type: req.params.type
   };
-  let neededShipParams = {
-    "name": 1,
-    "default_profile.artillery": 1,
-    "default_profile.artillery.slots[0].guns": 1,
-    "default_profile.artillery.slots[0].barrels": 1,
-    "default_profile.artillery.gun_rate": 1
-  };
+  // let neededShipParams = {
+  //   "name": 1,
+  //   "default_profile.artillery": 1,
+  //   "default_profile.artillery.slots[0].guns": 1,
+  //   "default_profile.artillery.slots[0].barrels": 1,
+  //   "default_profile.artillery.gun_rate": 1
+  // };
   // let aggregate = {
   //   "default_profile.concealment.detect_distance_by_ship": 1
   // };
@@ -27,25 +27,22 @@ exports.shipsHEDPM = function (req, res) {
       "type": 1,
       "tier": 1,
       "default_profile.artillery": 1,
-      "default_profile.artillery.slots[0].guns": 1,
-      "default_profile.artillery.slots[0].barrels": 1,
-      "default_profile.artillery.gun_rate": 1,
       "hedpm": {
         $multiply: [
           "$default_profile.artillery.shells.HE.damage",
-          "$default_profile.artillery.slots[0].guns",
-          "$default_profile.artillery.slots[0].barrels",
+          "$default_profile.artillery.slots.0.guns",
+          "$default_profile.artillery.slots.0.barrels",
           "$default_profile.artillery.gun_rate"
         ]
       }
     }},
     {$match: query},
-    {$sort: {"$default_profile.concealment.detect_distance_by_ship": 1}}
+    {$sort: {"hedpm": 1}}
   ]
 
   db.aggregate(pipeline)
   .exec(function(err, ships){
-    console.log(ships);
+    console.log(ships, "ships from DB");
     if (err || !ships || !ships.length) {
       return res.status(404).send({message: 'Ships not found.', err});
     }
@@ -54,7 +51,7 @@ exports.shipsHEDPM = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.default_profile.concealment.detect_distance_by_ship);
+      data.push(ship.hedpm);
 
     });
 
@@ -62,7 +59,7 @@ exports.shipsHEDPM = function (req, res) {
       labels: labels,
       datasets: [
         {
-          label: 'Concealment',
+          label: 'HE DPM',
           backgroundColor: 'rgba(75,192,192,1)',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
