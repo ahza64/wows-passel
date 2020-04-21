@@ -19,6 +19,7 @@ class App extends React.Component {
       nation: "usa",
       tier: 3,
       field: "sample, click buttons above to retireve and render more data",
+      headerField: "usa",
       chartData: {
         labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
         datasets: [
@@ -43,6 +44,7 @@ class App extends React.Component {
       console.log(data);
       this.setState({
         field: "HE DPM",
+        headerField: "HE DPM",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -74,6 +76,7 @@ class App extends React.Component {
       console.log(data);
       this.setState({
         field: "Concealments",
+        headerField: "Concealments",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -106,6 +109,7 @@ class App extends React.Component {
 
       this.setState({
         field: "HE DPM",
+        headerField: "HE DPM",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -138,6 +142,7 @@ class App extends React.Component {
 
       this.setState({
         field: "HE alpha",
+        headerField: "HE Alpha",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -170,6 +175,7 @@ class App extends React.Component {
 
       this.setState({
         field: "Turret Traverse",
+        headerField: "Turret Traverse",
         ships: data,
         chartData: {
           labels: data.labels,
@@ -211,7 +217,9 @@ class App extends React.Component {
       console.log("update successful", data);
       this.setState({
         chartData: data,
-        nation: this.state.tier
+        nation: this.state.tier,
+        field: "Concealments",
+        headerField: "Concealments",
       })
     })
     .catch( err => {
@@ -229,7 +237,9 @@ class App extends React.Component {
       console.log("update successful", data);
       this.setState({
         chartData: data,
-        nation: this.state.tier
+        nation: this.state.tier,
+        field: "HE DPM",
+        headerField: "HE DPM",
       })
     })
     .catch( err => {
@@ -247,7 +257,9 @@ class App extends React.Component {
       console.log("update successful", data);
       this.setState({
         chartData: data,
-        nation: this.state.tier
+        nation: this.state.tier,
+        field: "HE Alpha",
+        headerField: "HE Alpha",
       })
     })
     .catch( err => {
@@ -265,7 +277,9 @@ class App extends React.Component {
       console.log("update successful", data);
       this.setState({
         chartData: data,
-        nation: this.state.tier
+        nation: this.state.tier,
+        field: "Turret Traverse",
+        headerField: "Turret Traverse",
       })
     })
     .catch( err => {
@@ -283,7 +297,9 @@ class App extends React.Component {
       console.log("update successful", data);
       this.setState({
         chartData: data,
-        nation: this.state.tier
+        nation: this.state.tier,
+        field: "Rudder Shift",
+        headerField: "Rudder Shift",
       })
     })
     .catch( err => {
@@ -304,7 +320,7 @@ class App extends React.Component {
           options={{
             title:{
               display:true,
-              text:`${this.state.nation} ${this.state.type} ${this.state.field}`,
+              text:`${this.state.headerField} ${this.state.type} ${this.state.field}`,
               fontSize:20
             },
             legend:{
