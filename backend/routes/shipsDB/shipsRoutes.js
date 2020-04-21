@@ -1,6 +1,6 @@
 const fetch = require('node-fetch');
 const express = require('express');
-const shipsController = require('../../controllers/shipsController.js');
+const shipsController = require('../../controllers/shipsConcealmentsController.js');
 const shipsHEDPMController = require('../../controllers/shipsHEDPMController.js');
 const shipsHEALPHAController = require('../../controllers/shipsHEALPHAController.js');
 const shipsTraverseController = require('../../controllers/shipsTraverseController.js');

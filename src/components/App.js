@@ -219,7 +219,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "Concealments",
-        headerField: this.state.tier,
+        headerField: `Tier ${this.state.tier}`,
       })
     })
     .catch( err => {
@@ -239,7 +239,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "HE DPM",
-        headerField: this.state.tier,
+        headerField: `Tier ${this.state.tier}`,
       })
     })
     .catch( err => {
@@ -259,7 +259,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "HE Alpha",
-        headerField: this.state.tier,
+        headerField: `Tier ${this.state.tier}`,
       })
     })
     .catch( err => {
@@ -279,7 +279,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "Turret Traverse",
-        headerField: this.state.tier,
+        headerField: `Tier ${this.state.tier}`,
       })
     })
     .catch( err => {
@@ -299,7 +299,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "Rudder Shift",
-        headerField: this.state.tier,
+        headerField: `Tier ${this.state.tier}`,
       })
     })
     .catch( err => {
