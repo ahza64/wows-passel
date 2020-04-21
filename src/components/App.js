@@ -44,7 +44,7 @@ class App extends React.Component {
       console.log(data);
       this.setState({
         field: "HE DPM",
-        headerField: "HE DPM",
+        headerField: this.state.nation,
         ships: data,
         chartData: {
           labels: data.labels,
@@ -76,7 +76,7 @@ class App extends React.Component {
       console.log(data);
       this.setState({
         field: "Concealments",
-        headerField: "Concealments",
+        headerField: this.state.nation,
         ships: data,
         chartData: {
           labels: data.labels,
@@ -109,7 +109,7 @@ class App extends React.Component {
 
       this.setState({
         field: "HE DPM",
-        headerField: "HE DPM",
+        headerField: this.state.nation,
         ships: data,
         chartData: {
           labels: data.labels,
@@ -142,7 +142,7 @@ class App extends React.Component {
 
       this.setState({
         field: "HE alpha",
-        headerField: "HE Alpha",
+        headerField: this.state.nation,
         ships: data,
         chartData: {
           labels: data.labels,
@@ -175,7 +175,7 @@ class App extends React.Component {
 
       this.setState({
         field: "Turret Traverse",
-        headerField: "Turret Traverse",
+        headerField: this.state.nation,
         ships: data,
         chartData: {
           labels: data.labels,
@@ -219,7 +219,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "Concealments",
-        headerField: "Concealments",
+        headerField: this.state.tier,
       })
     })
     .catch( err => {
@@ -239,7 +239,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "HE DPM",
-        headerField: "HE DPM",
+        headerField: this.state.tier,
       })
     })
     .catch( err => {
@@ -259,7 +259,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "HE Alpha",
-        headerField: "HE Alpha",
+        headerField: this.state.tier,
       })
     })
     .catch( err => {
@@ -279,7 +279,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "Turret Traverse",
-        headerField: "Turret Traverse",
+        headerField: this.state.tier,
       })
     })
     .catch( err => {
@@ -299,7 +299,7 @@ class App extends React.Component {
         chartData: data,
         nation: this.state.tier,
         field: "Rudder Shift",
-        headerField: "Rudder Shift",
+        headerField: this.state.tier,
       })
     })
     .catch( err => {
