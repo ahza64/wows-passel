@@ -1,7 +1,7 @@
 const db = require('../models/ship.js');
 
 exports.shipsTraverse = function (req, res) {
-  console.log("get ships concealments pinged", req.params.type);
+  console.log("get ships traverse pinged", req.params.type);
 
   let query = {
     tier: parseInt(req.params.tier),
@@ -39,7 +39,7 @@ exports.shipsTraverse = function (req, res) {
       labels: labels,
       datasets: [
         {
-          label: 'Concealment',
+          label: 'Turret Traverse',
           backgroundColor: 'rgba(75,192,192,1)',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,

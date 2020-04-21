@@ -210,7 +210,8 @@ class App extends React.Component {
     .then((data) => {
       console.log("update successful", data);
       this.setState({
-        chartData: data
+        chartData: data,
+        nation: this.state.tier
       })
     })
     .catch( err => {
@@ -227,7 +228,8 @@ class App extends React.Component {
     .then((data) => {
       console.log("update successful", data);
       this.setState({
-        chartData: data
+        chartData: data,
+        nation: this.state.tier
       })
     })
     .catch( err => {
@@ -244,7 +246,8 @@ class App extends React.Component {
     .then((data) => {
       console.log("update successful", data);
       this.setState({
-        chartData: data
+        chartData: data,
+        nation: this.state.tier
       })
     })
     .catch( err => {
@@ -261,7 +264,26 @@ class App extends React.Component {
     .then((data) => {
       console.log("update successful", data);
       this.setState({
-        chartData: data
+        chartData: data,
+        nation: this.state.tier
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  onFormSubmitRudderByTier(e) {
+    e.preventDefault();
+    fetch(`/ships/rudder/bytier/${this.state.tier}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data,
+        nation: this.state.tier
       })
     })
     .catch( err => {
@@ -275,7 +297,6 @@ class App extends React.Component {
     <Container>
       <h1 id="title">World of Warships data visualisation
         <Button variant="outline-secondary" onClick={e => this.updateDB(e)}>update DB</Button>
-        <Button variant="outline-secondary" onClick={e => this.testDBQueryButton(e)}>test</Button>
       </h1>
 
         <Bar id="container"
@@ -354,6 +375,9 @@ class App extends React.Component {
             </Button>
             <Button variant="secondary" type="submit" onClick={e => this.onFormSubmitTraverseByTier(e)}>
               Turret Traverse
+            </Button>
+            <Button variant="info" type="submit" onClick={e => this.onFormSubmitRudderByTier(e)}>
+              Rudder Shift
             </Button>
           </ButtonGroup>
           <div>by nation</div>
