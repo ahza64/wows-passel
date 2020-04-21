@@ -14,7 +14,6 @@ class App extends React.Component {
 
     this.state = {
       ships: [],
-      hedps: [288],
       type: "Cruiser",
       nation: "usa",
       tier: 3,

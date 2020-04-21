@@ -11,9 +11,7 @@ exports.shipsConcealments = function (req, res) {
     name: 1,
     "default_profile.concealment.detect_distance_by_ship": 1
   };
-  // let aggregate = {
-  //   "default_profile.concealment.detect_distance_by_ship": 1
-  // };
+
   let pipeline = [
     {$match: query},
     {$project: neededShipParams},
@@ -47,23 +45,6 @@ exports.shipsConcealments = function (req, res) {
         }
       ]
     }
-
-  // db.find(query, projection).sort(aggregate)
-  // .exec(function(err, ships){
-  //   if (err || !ships || !ships.length) {
-  //     return res.status(404).send({message: 'Ships not found.'});
-  //   }
-  //
-  //   var labels = [];
-  //   var data = [];
-  //   ships.forEach(function(ship) {
-  //     labels.push(ship.name);
-  //     data.push(ship.default_profile.concealment.detect_distance_by_ship);
-  //
-  //   });
-    // i can't deal with these errors anymore, giving up for now. just trying to format data here...
-// aggregate pipeline db.aggregate(pipeline) var pipeline = [{$group: { count: {$sum: 1}}}]
-    // console.log("inside the loop", ships);
 
     res.send(chartData);
   });
