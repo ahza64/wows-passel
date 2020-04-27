@@ -82,6 +82,11 @@ var shipSchema = new Schema({
             barrels: Number,
             name: String,
             guns: Number
+        },
+        1: {
+            barrels: Number,
+            name: String,
+            guns: Number
         }
       }
     },
