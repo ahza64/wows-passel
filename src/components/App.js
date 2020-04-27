@@ -17,7 +17,7 @@ class App extends React.Component {
       type: "Cruiser",
       nation: "usa",
       tier: 3,
-      field: "sample, click buttons above to retireve and render more data",
+      field: "concealments",
       headerField: "usa",
       chartData: {
         labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
@@ -35,33 +35,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/api/wg/${this.state.type}/${this.state.nation}/hedpm`)
+    fetch(`/ships/${this.state.field}/bytier/${this.state.tier}/${this.state.type}`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
+      console.log("update successful", data);
       this.setState({
-        field: "HE DPM",
-        headerField: this.state.nation,
-        ships: data,
-        chartData: {
-          labels: data.labels,
-          datasets: [
-            {
-              label: 'HE DPM',
-              backgroundColor: 'rgba(75,192,192,1)',
-              borderColor: 'rgba(0,0,0,1)',
-              borderWidth: 2,
-              data: data.datasets[0].data
-            }
-          ]
-        }
-      });
+        chartData: data,
+        nation: this.state.nation,
+        field: this.state.field,
+        headerField: `Tier ${this.state.tier}`,
+      })
     })
     .catch( err => {
       console.log(err);
-    })
+    });
   }
 
   onFormConcealmentSubmit(e) {
@@ -306,6 +295,52 @@ class App extends React.Component {
     });
   }
 
+  handleTierChange(e) {
+    e.preventDefault();
+    e.persist();
+    this.setState({tier: e.target.value});
+    console.log(this.state.tier);
+    fetch(`/ships/${this.state.field}/bytier/${e.target.value}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data,
+        nation: `${this.state.nation}`,
+        field: `${this.state.field}`,
+        headerField: `Tier ${e.target.value}`,
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  handleParameterChange(e) {
+    e.preventDefault();
+    e.persist();
+
+    this.setState({field: e.target.value});
+    fetch(`/ships/${e.target.value}/bytier/${this.state.tier}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data,
+        nation: this.state.nation,
+        field: `${e.target.value}`,
+        headerField: `Tier ${this.state.tier}`,
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
   render() {
     return (
     <div id="background" >
@@ -338,7 +373,7 @@ class App extends React.Component {
           <Form.Row>
             <Form.Group as={Col} controlId="formGridCity">
               <Form.Label>Class</Form.Label>
-              <Form.Control as="select" onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
+              <Form.Control name="type" as="select" onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
                 <option>Destroyer</option>
                 <option>Cruiser</option>
                 <option>Battleship</option>
@@ -347,7 +382,7 @@ class App extends React.Component {
 
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Nation</Form.Label>
-              <Form.Control as="select" onChange={e => this.setState({ nation: e.target.value })} value={this.state.nation}>
+              <Form.Control name="nation" as="select" onChange={e => this.setState({ nation: e.target.value })} value={this.state.nation}>
                 <option>commonwealth</option>
                 <option>europe</option>
                 <option>italy</option>
@@ -363,7 +398,7 @@ class App extends React.Component {
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Tier</Form.Label>
-              <Form.Control as="select" onChange={e => this.setState({ tier: e.target.value })} value={this.state.tier}>
+              <Form.Control name="tier" as="select" onChange={e => this.handleTierChange(e)} value={this.state.tier}>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -374,6 +409,16 @@ class App extends React.Component {
                 <option>8</option>
                 <option>9</option>
                 <option>10</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Parameter</Form.Label>
+              <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
+                <option>concealments</option>
+                <option>hedpm</option>
+                <option>healpha</option>
+                <option>traverse</option>
+                <option>rudder</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
