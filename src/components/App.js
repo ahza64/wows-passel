@@ -18,7 +18,7 @@ class App extends React.Component {
       nation: "usa",
       tier: 3,
       field: "concealments",
-      headerField: "usa",
+      headerField: "Tier 3",
       chartData: {
         labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
         datasets: [
@@ -43,6 +43,7 @@ class App extends React.Component {
       console.log("update successful", data);
       this.setState({
         chartData: data,
+        tier: 3,
         nation: this.state.nation,
         field: this.state.field,
         headerField: `Tier ${this.state.tier}`,
@@ -63,7 +64,7 @@ class App extends React.Component {
     .then((data) => {
       console.log(data);
       this.setState({
-        field: "Concealments",
+        field: "concealments",
         headerField: this.state.nation,
         ships: data,
         chartData: {
@@ -96,7 +97,7 @@ class App extends React.Component {
       console.log(data);
 
       this.setState({
-        field: "HE DPM",
+        field: "hedpm",
         headerField: this.state.nation,
         ships: data,
         chartData: {
@@ -129,7 +130,7 @@ class App extends React.Component {
       console.log(data);
 
       this.setState({
-        field: "HE alpha",
+        field: "healpha",
         headerField: this.state.nation,
         ships: data,
         chartData: {
@@ -162,7 +163,7 @@ class App extends React.Component {
       console.log(data);
 
       this.setState({
-        field: "Turret Traverse",
+        field: "traverse",
         headerField: this.state.nation,
         ships: data,
         chartData: {
@@ -189,106 +190,6 @@ class App extends React.Component {
     fetch(`/db/updateDB`)
     .then((data) => {
       console.log("update successful");
-    })
-    .catch( err => {
-      console.log(err);
-    });
-  }
-
-  onFormSubmitConcealmentsByTier(e) {
-    e.preventDefault();
-    fetch(`/ships/concealments/bytier/${this.state.tier}/${this.state.type}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data);
-      this.setState({
-        chartData: data,
-        nation: this.state.tier,
-        field: "Concealments",
-        headerField: `Tier ${this.state.tier}`,
-      })
-    })
-    .catch( err => {
-      console.log(err);
-    });
-  }
-
-  onFormSubmitHEDPMByTier(e) {
-    e.preventDefault();
-    fetch(`/ships/hedpm/bytier/${this.state.tier}/${this.state.type}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data);
-      this.setState({
-        chartData: data,
-        nation: this.state.tier,
-        field: "HE DPM",
-        headerField: `Tier ${this.state.tier}`,
-      })
-    })
-    .catch( err => {
-      console.log(err);
-    });
-  }
-
-  onFormSubmitHEAlphaByTier(e) {
-    e.preventDefault();
-    fetch(`/ships/healpha/bytier/${this.state.tier}/${this.state.type}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data);
-      this.setState({
-        chartData: data,
-        nation: this.state.tier,
-        field: "HE Alpha",
-        headerField: `Tier ${this.state.tier}`,
-      })
-    })
-    .catch( err => {
-      console.log(err);
-    });
-  }
-
-  onFormSubmitTraverseByTier(e) {
-    e.preventDefault();
-    fetch(`/ships/traverse/bytier/${this.state.tier}/${this.state.type}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data);
-      this.setState({
-        chartData: data,
-        nation: this.state.tier,
-        field: "Turret Traverse",
-        headerField: `Tier ${this.state.tier}`,
-      })
-    })
-    .catch( err => {
-      console.log(err);
-    });
-  }
-
-  onFormSubmitRudderByTier(e) {
-    e.preventDefault();
-    fetch(`/ships/rudder/bytier/${this.state.tier}/${this.state.type}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data);
-      this.setState({
-        chartData: data,
-        nation: this.state.tier,
-        field: "Rudder Shift",
-        headerField: `Tier ${this.state.tier}`,
-      })
     })
     .catch( err => {
       console.log(err);
@@ -341,6 +242,30 @@ class App extends React.Component {
     });
   }
 
+  handleTypeChange(e) {
+    e.preventDefault();
+    e.persist();
+
+    this.setState({type: e.target.value});
+    fetch(`/ships/${this.state.field}/bytier/${this.state.tier}/${e.target.value}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        chartData: data,
+        type: e.target.value,
+        nation: this.state.nation,
+        field: this.state.field,
+        headerField: `Tier ${this.state.tier}`,
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
   render() {
     return (
     <div id="background" >
@@ -366,14 +291,14 @@ class App extends React.Component {
 
         <div id="form">
         <p>
-          click a button, to retrive and graph data from WG api
+          make a selection in the menus below
         </p>
 
         <Form >
           <Form.Row>
             <Form.Group as={Col} controlId="formGridCity">
               <Form.Label>Class</Form.Label>
-              <Form.Control name="type" as="select" onChange={e => this.setState({ type: e.target.value })} value={this.state.type}>
+              <Form.Control name="type" as="select" onChange={e => this.handleTypeChange(e)} value={this.state.type}>
                 <option>Destroyer</option>
                 <option>Cruiser</option>
                 <option>Battleship</option>
@@ -422,24 +347,6 @@ class App extends React.Component {
               </Form.Control>
             </Form.Group>
           </Form.Row>
-          <div>by tier</div>
-          <ButtonGroup>
-            <Button variant="primary" type="submit" onClick={e => this.onFormSubmitConcealmentsByTier(e)}>
-              Concealments
-            </Button>
-            <Button variant="warning" type="submit" onClick={e => this.onFormSubmitHEDPMByTier(e)}>
-              HE DPM
-            </Button>
-            <Button variant="danger" type="submit" onClick={e => this.onFormSubmitHEAlphaByTier(e)}>
-              HE Alpha α
-            </Button>
-            <Button variant="secondary" type="submit" onClick={e => this.onFormSubmitTraverseByTier(e)}>
-              Turret Traverse
-            </Button>
-            <Button variant="info" type="submit" onClick={e => this.onFormSubmitRudderByTier(e)}>
-              Rudder Shift
-            </Button>
-          </ButtonGroup>
           <div>by nation</div>
           <ButtonGroup>
             <Button variant="primary" type="submit" onClick={e => this.onFormConcealmentSubmit(e)}>
