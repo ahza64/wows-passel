@@ -344,6 +344,7 @@ class App extends React.Component {
                 <option>healpha</option>
                 <option>traverse</option>
                 <option>rudder</option>
+                <option>fpm</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
