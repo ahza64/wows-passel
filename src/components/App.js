@@ -340,7 +340,7 @@ class App extends React.Component {
               <Form.Label>Parameter</Form.Label>
               <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
                 <option value="concealments">Concealments</option>
-                <option value="hedpm">HE DPM</option>
+                <option value="hedpm">HE DPM + Hit Points</option>
                 <option value="healpha">HE Alpha</option>
                 <option value="traverse">Turret Traverse</option>
                 <option value="rudder">Rudder Shift</option>

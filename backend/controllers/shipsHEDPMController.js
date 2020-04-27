@@ -14,6 +14,7 @@ exports.shipsHEDPM = function (req, res) {
       "type": 1,
       "tier": 1,
       "default_profile.artillery": 1,
+      "default_profile.hull.health": 1,
       "hedpm": {
         $multiply: [
           "$default_profile.artillery.shells.HE.damage",
@@ -38,10 +39,11 @@ exports.shipsHEDPM = function (req, res) {
 
     var labels = [];
     var data = [];
+    var data2 = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
       data.push(ship.hedpm);
-
+      data2.push(ship.default_profile.hull.health)
     });
 
     let chartData = {
@@ -53,6 +55,13 @@ exports.shipsHEDPM = function (req, res) {
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data
+        },
+        {
+          label: 'Hit Points',
+          backgroundColor: 'rgba(255,0,0,1)',
+          borderColor: 'rgba(0,0,0,1)',
+          borderWidth: 2,
+          data: data2
         }
       ]
     }
