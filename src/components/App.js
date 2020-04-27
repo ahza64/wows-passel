@@ -339,12 +339,12 @@ class App extends React.Component {
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Parameter</Form.Label>
               <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
-                <option>concealments</option>
-                <option>hedpm</option>
-                <option>healpha</option>
-                <option>traverse</option>
-                <option>rudder</option>
-                <option>fpm</option>
+                <option value="concealments">Concealments</option>
+                <option value="hedpm">HE DPM</option>
+                <option value="healpha">HE Alpha</option>
+                <option value="traverse">Turret Traverse</option>
+                <option value="rudder">Rudder Shift</option>
+                <option value="fpm">Fires per min</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
