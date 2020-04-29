@@ -285,6 +285,18 @@ class App extends React.Component {
             legend:{
               display:true,
               position:'right'
+            },
+            scales: {
+              xAxes: [{
+                gridLines: {
+                  color: "rgba(255, 255, 255, 0)",
+                }
+              }],
+              yAxes: [{
+                gridLines: {
+                  color: "rgba(255, 255, 255, 1)",
+                }
+              }]
             }
           }}
         />
