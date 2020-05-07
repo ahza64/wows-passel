@@ -92,7 +92,9 @@ class App extends React.Component {
     e.preventDefault();
     e.persist();
 
-    this.setState({field: e.target.value});
+    this.setState({
+      field: e.target.value
+    });
     fetch(`/ships/${e.target.value}/bytier/${this.state.tier}/${this.state.type}`)
     .then((res) => {
       return res.json();
@@ -102,7 +104,7 @@ class App extends React.Component {
       this.setState({
         chartData: data,
         nation: this.state.nation,
-        field: `${e.target.value}`,
+        field: e.target.value,
         headerField: `Tier ${this.state.tier}`,
       })
     })
@@ -146,8 +148,7 @@ class App extends React.Component {
     })
     .then((data) => {
       console.log("update successful", this.state.chartData.datasets, data.datasets[0].data);
-      //check for data length longer than 2, and delete pos[1], the second value in the array. can probably just pop pos[1] every time without a check in JS
-      //frontend needs to send order to back end. can probably send order everytime and use the same route
+      // reordering on the frontend
       //color change
       let data1 = this.state.chartData.datasets;
       let data2 = data1.slice(0, 1);
@@ -237,7 +238,7 @@ class App extends React.Component {
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Parameter 1</Form.Label>
               <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
-                <option value="concealments">Concealments</option>
+              <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
                 <option value="healpha">HE Alpha</option>
                 <option value="traverse">Turret Traverse</option>

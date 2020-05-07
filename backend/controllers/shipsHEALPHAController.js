@@ -59,7 +59,7 @@ exports.shipsHEAlpha = function (req, res) {
         }
       ]
     }
-    
+
     res.send(chartData);
   });
 
