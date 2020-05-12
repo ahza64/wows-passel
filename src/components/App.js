@@ -149,6 +149,7 @@ class App extends React.Component {
     .then((data) => {
       console.log("update successful", data);
 
+
       // reordering second param on the frontend is better than setting up dual
       // routes and/or calculating dpm on the front end. it also is easy to
       // abstract out, and scale with more parameters, which is planned in the near
@@ -164,7 +165,7 @@ class App extends React.Component {
       data.datasets[0].data = newOrderedValues;
       console.log("data", data);
       let newChartData = this.state.chartData;
-      newChartData.datasets.push(data.datasets[0]);
+      newChartData.datasets[1] = data.datasets[0];
       this.setState({
         chartData: newChartData
       });

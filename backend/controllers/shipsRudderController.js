@@ -38,7 +38,7 @@ exports.shipsRudder = function (req, res) {
       datasets: [
         {
           label: 'Rudder Shift',
-          backgroundColor: 'light blue',
+          backgroundColor: 'blue',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data
