@@ -147,11 +147,12 @@ class App extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful this.state.chartData.datasets", this.state.chartData.datasets);
-      console.log("update successful data from server", data);
-      // call fetch('/ships/...') for first parameter again when calling second Parameter
-      //
-      // reordering on the frontend
+      console.log("update successful", data);
+
+      // reordering second param on the frontend is better than setting up dual
+      // routes and/or calculating dpm on the front end. it also is easy to
+      // abstract out, and scale with more parameters, which is planned in the near
+      // future of the app
       let newOrderedValues = [];
       let currentOrderedLabels = this.state.chartData.labels;
       let newUnorderedLabels = data.labels;
@@ -167,42 +168,7 @@ class App extends React.Component {
       this.setState({
         chartData: newChartData
       });
-      // let chartDataSets = this.state.chartData.datasets;
-      // console.log("new stuff", chartDataSets);
-      // chartDataSets = chartDataSets.push(sortedChartData);
-      // this.setState({
-      //   chartData: {
-      //     datasets: chartDataSets
-      //   }
-      // });
-      // for (var j = arr1.length; j > 0; j--) {
-      //   for (var i = 0; i < j; i++) {
-      //     if (arr1[i] > arr1[i + 1]) {
-      //       var temp1 = arr1[i];
-      //       arr1[i] = arr1[i + 1];
-      //       arr1[i + 1] = temp1;
-      //       var temp2 = arr2[i];
-      //       arr2[i] = arr2[i + 1];
-      //       arr2[i + 1] = temp2;
-      //       var temp3 = labels[i];
-      //       labels[i] = labels[i + 1];
-      //       labels[i + 1] = temp3;
-      //     }
-      //   }
-      // }
-      //color change
-      // let data1 = this.state.chartData.datasets;
-      // let data2 = data1.slice(0, 1);
-      // console.log("slice", data2);
-      // data2.push(data.datasets[0]);
-      // data.datasets = data2;
-      // console.log("data", data);
-      // this.setState({
-      //   chartData: data,
-      //   nation: this.state.nation,
-      //   field2: `${e.target.value}`,
-      //   headerField: `Tier ${this.state.tier}`,
-      // })
+
     })
     .catch( err => {
       console.log(err);

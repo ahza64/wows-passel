@@ -38,7 +38,7 @@ exports.shipsTraverse = function (req, res) {
       datasets: [
         {
           label: 'Turret Traverse',
-          backgroundColor: 'rgba(75,192,192,1)',
+          backgroundColor: 'grey',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data

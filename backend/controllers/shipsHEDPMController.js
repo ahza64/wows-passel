@@ -49,7 +49,7 @@ exports.shipsHEDPM = function (req, res) {
       datasets: [
         {
           label: 'HE DPM',
-          backgroundColor: 'rgba(75,192,192,1)',
+          backgroundColor: 'purple',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data
