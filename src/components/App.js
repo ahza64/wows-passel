@@ -256,7 +256,7 @@ class App extends React.Component {
                 <option value="rudder">Rudder Shift</option>
                 <option value="fpm">Fires per min</option>
                 <option value="turnradius">Turn Radius</option>
-                <option value="fpm">AP DPM</option>
+                <option value="apdpm">AP DPM</option>
                 <option value="fpm">AP Alpha</option>
                 <option value="fullspeed">Full Speed</option>
               </Form.Control>
