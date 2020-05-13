@@ -249,29 +249,34 @@ class App extends React.Component {
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Parameter 1 ascending order</Form.Label>
               <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
-              <option value="concealments">Concealments</option>
+                <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
+                <option value="apdpm">AP DPM</option>
                 <option value="healpha">HE Alpha</option>
+                <option value="apalpha">AP Alpha</option>
+                <option value="hp">Hit Points</option>
+                <option value="fpm">Fires per min</option>
                 <option value="traverse">Turret Traverse</option>
                 <option value="rudder">Rudder Shift</option>
-                <option value="fpm">Fires per min</option>
                 <option value="turnradius">Turn Radius</option>
-                <option value="apdpm">AP DPM</option>
-                <option value="apalpha">AP Alpha</option>
                 <option value="fullspeed">Full Speed</option>
-                <option value="hp">Hit Points</option>
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Parameter 2</Form.Label>
               <Form.Control name="field2" as="select" onChange={e => this.handleParameter2Change(e)} value={this.state.field2}>
-              <option value="----">----</option>
+                <option value="----">----</option>
                 <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
+                <option value="apdpm">AP DPM</option>
                 <option value="healpha">HE Alpha</option>
+                <option value="apalpha">AP Alpha</option>
+                <option value="hp">Hit Points</option>
+                <option value="fpm">Fires per min</option>
                 <option value="traverse">Turret Traverse</option>
                 <option value="rudder">Rudder Shift</option>
-                <option value="fpm">Fires per min</option>
+                <option value="turnradius">Turn Radius</option>
+                <option value="fullspeed">Full Speed</option>
               </Form.Control>
             </Form.Group>
           </Form.Row>
