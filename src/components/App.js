@@ -252,6 +252,7 @@ class App extends React.Component {
                 <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
                 <option value="apdpm">AP DPM</option>
+                <option value="torpdpm">Torp DPM</option>
                 <option value="healpha">HE Alpha</option>
                 <option value="apalpha">AP Alpha</option>
                 <option value="hp">Hit Points</option>
@@ -269,6 +270,7 @@ class App extends React.Component {
                 <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
                 <option value="apdpm">AP DPM</option>
+                <option value="torpdpm">Torp DPM</option>
                 <option value="healpha">HE Alpha</option>
                 <option value="apalpha">AP Alpha</option>
                 <option value="hp">Hit Points</option>

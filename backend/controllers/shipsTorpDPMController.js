@@ -1,6 +1,6 @@
 const db = require('../models/ship.js');
 
-exports.shipsHEDPM = function (req, res) {
+exports.shipsTorpDPM = function (req, res) {
   console.log("get ships hedpm by tier pinged", req.params.type);
 
   let query = {
@@ -14,31 +14,31 @@ exports.shipsHEDPM = function (req, res) {
       "type": 1,
       "tier": 1,
       "default_profile.artillery": 1,
-      "hedpm": {
+      "torpdpm": {
         $multiply: [
-          "$default_profile.artillery.shells.HE.damage",
+          "$default_profile.torpedoes.max_damage",
           {
             $add: [
               {
                 $multiply: [
-                  "$default_profile.artillery.slots.0.guns",
-                  "$default_profile.artillery.slots.0.barrels"
+                  "$default_profile.torpedoes.slots.0.guns",
+                  "$default_profile.torpedoes.slots.0.barrels"
                 ]
               },
               {
                 $multiply: [
-                  {"$ifNull": ["$default_profile.artillery.slots.1.guns", 1]},
-                  {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 1]}
+                  {"$ifNull": ["$default_profile.torpedoes.slots.1.guns", 1]},
+                  {"$ifNull": ["$default_profile.torpedoes.slots.1.barrels", 1]}
                 ]
               }
             ]
           },
-          "$default_profile.artillery.gun_rate"
+          "$default_profile.torpedoes.reload_time"
         ]
       }
     }},
     {$match: query},
-    {$sort: {"hedpm": 1}}
+    {$sort: {"torpdpm": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -52,15 +52,15 @@ exports.shipsHEDPM = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.hedpm);
+      data.push(ship.torpdpm);
     });
 
     let chartData = {
       labels: labels,
       datasets: [
         {
-          label: 'HE DPM',
-          backgroundColor: 'purple',
+          label: 'Torp DPM',
+          backgroundColor: 'yellow',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data

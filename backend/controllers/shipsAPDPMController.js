@@ -14,7 +14,6 @@ exports.shipsAPDPM = function (req, res) {
       "type": 1,
       "tier": 1,
       "default_profile.artillery": 1,
-      "default_profile.hull.health": 1,
       "apdpm": {
         $multiply: [
           "$default_profile.artillery.shells.AP.damage",

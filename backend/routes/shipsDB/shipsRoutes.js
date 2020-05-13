@@ -11,6 +11,7 @@ const shipsFullSpeedController = require('../../controllers/shipsFullSpeedContro
 const shipsAPDPMController = require('../../controllers/shipsAPDPMController.js');
 const shipsAPALPHAController = require('../../controllers/shipsAPALPHAController.js');
 const shipsHPController = require('../../controllers/shipsHPController.js');
+const shipsTorpDPMController = require('../../controllers/shipsTorpDPMController.js');
 
 const router = express.Router();
 
@@ -26,5 +27,6 @@ router.get('/ships/fullspeed/bytier/:tier/:type', shipsFullSpeedController.ships
 router.get('/ships/apdpm/bytier/:tier/:type', shipsAPDPMController.shipsAPDPM);
 router.get('/ships/apalpha/bytier/:tier/:type', shipsAPALPHAController.shipsAPAlpha);
 router.get('/ships/hp/bytier/:tier/:type', shipsHPController.shipsHP);
+router.get('/ships/torpdpm/bytier/:tier/:type', shipsTorpDPMController.shipsTorpDPM);
 
 module.exports = router;
