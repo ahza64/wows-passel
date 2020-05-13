@@ -259,7 +259,7 @@ class App extends React.Component {
                 <option value="apdpm">AP DPM</option>
                 <option value="apalpha">AP Alpha</option>
                 <option value="fullspeed">Full Speed</option>
-                <option value="fullspeed">Hit Points</option>
+                <option value="hp">Hit Points</option>
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState">

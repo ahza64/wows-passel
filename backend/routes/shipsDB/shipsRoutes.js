@@ -10,6 +10,7 @@ const shipsTurnRadiusController = require('../../controllers/shipsTurnRadiusCont
 const shipsFullSpeedController = require('../../controllers/shipsFullSpeedController.js');
 const shipsAPDPMController = require('../../controllers/shipsAPDPMController.js');
 const shipsAPALPHAController = require('../../controllers/shipsAPALPHAController.js');
+const shipsHPController = require('../../controllers/shipsHPController.js');
 
 const router = express.Router();
 
@@ -24,5 +25,6 @@ router.get('/ships/turnradius/bytier/:tier/:type', shipsTurnRadiusController.shi
 router.get('/ships/fullspeed/bytier/:tier/:type', shipsFullSpeedController.shipsFullSpeed);
 router.get('/ships/apdpm/bytier/:tier/:type', shipsAPDPMController.shipsAPDPM);
 router.get('/ships/apalpha/bytier/:tier/:type', shipsAPALPHAController.shipsAPAlpha);
+router.get('/ships/hp/bytier/:tier/:type', shipsHPController.shipsHP);
 
 module.exports = router;
