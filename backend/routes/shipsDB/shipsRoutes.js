@@ -29,6 +29,6 @@ router.get('/ships/apdpm/bytier/:tier/:type', shipsAPDPMController.shipsAPDPM);
 router.get('/ships/apalpha/bytier/:tier/:type', shipsAPALPHAController.shipsAPAlpha);
 router.get('/ships/hp/bytier/:tier/:type', shipsHPController.shipsHP);
 router.get('/ships/torpdpm/bytier/:tier/:type', shipsTorpDPMController.shipsTorpDPM);
-router.get('/ships/torpdpm/bytier/:tier/:type', shipsTorpALPHAController.shipsTorpAlpha);
+router.get('/ships/torpalpha/bytier/:tier/:type', shipsTorpALPHAController.shipsTorpAlpha);
 
 module.exports = router;
