@@ -258,7 +258,7 @@ class App extends React.Component {
                 <option value="turnradius">Turn Radius</option>
                 <option value="fpm">AP DPM</option>
                 <option value="fpm">AP Alpha</option>
-                <option value="fpm">Top speed</option>
+                <option value="fullspeed">Full Speed</option>
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState">

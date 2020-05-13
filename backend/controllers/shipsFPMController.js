@@ -49,7 +49,7 @@ exports.shipsFPM = function (req, res) {
       datasets: [
         {
           label: 'FPM',
-          backgroundColor: 'red',
+          backgroundColor: 'darkRed',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data
