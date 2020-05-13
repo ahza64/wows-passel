@@ -80,6 +80,7 @@ class App extends React.Component {
         chartData: data,
         nation: `${this.state.nation}`,
         field: `${this.state.field}`,
+        field2: "----",
         headerField: `Tier ${e.target.value}`,
       })
     })
@@ -93,7 +94,8 @@ class App extends React.Component {
     e.persist();
 
     this.setState({
-      field: e.target.value
+      field: e.target.value,
+      field2: "----"
     });
     fetch(`/ships/${e.target.value}/bytier/${this.state.tier}/${this.state.type}`)
     .then((res) => {
@@ -129,6 +131,7 @@ class App extends React.Component {
         type: e.target.value,
         nation: this.state.nation,
         field: this.state.field,
+        field2: "----",
         headerField: `Tier ${this.state.tier}`,
       })
     })
