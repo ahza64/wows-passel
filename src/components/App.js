@@ -255,6 +255,7 @@ class App extends React.Component {
                 <option value="torpdpm">Torp DPM</option>
                 <option value="healpha">HE Alpha</option>
                 <option value="apalpha">AP Alpha</option>
+                <option value="torpalpha">Torp Alpha</option>
                 <option value="hp">Hit Points</option>
                 <option value="fpm">Fires per min</option>
                 <option value="traverse">Turret Traverse</option>
@@ -273,6 +274,7 @@ class App extends React.Component {
                 <option value="torpdpm">Torp DPM</option>
                 <option value="healpha">HE Alpha</option>
                 <option value="apalpha">AP Alpha</option>
+                <option value="torpalpha">Torp Alpha</option>
                 <option value="hp">Hit Points</option>
                 <option value="fpm">Fires per min</option>
                 <option value="traverse">Turret Traverse</option>
