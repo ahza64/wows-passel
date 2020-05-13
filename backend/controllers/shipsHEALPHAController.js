@@ -7,13 +7,7 @@ exports.shipsHEAlpha = function (req, res) {
     tier: parseInt(req.params.tier),
     type: req.params.type
   };
-  let neededShipParams = {
-    name: 1,
-    "default_profile.concealment.detect_distance_by_ship": 1
-  };
-  // let aggregate = {
-  //   "default_profile.concealment.detect_distance_by_ship": 1
-  // };
+
   let pipeline = [
     {$project: {
       "name": 1,
@@ -23,8 +17,22 @@ exports.shipsHEAlpha = function (req, res) {
       "healpha": {
         $multiply: [
           "$default_profile.artillery.shells.HE.damage",
-          "$default_profile.artillery.slots.0.guns",
-          "$default_profile.artillery.slots.0.barrels"
+          {
+            $add: [
+              {
+                $multiply: [
+                  "$default_profile.artillery.slots.0.guns",
+                  "$default_profile.artillery.slots.0.barrels"
+                ]
+              },
+              {
+                $multiply: [
+                  {"$ifNull": ["$default_profile.artillery.slots.1.guns", 1]},
+                  {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 1]}
+                ]
+              }
+            ]
+          }
         ]
       }
     }},
