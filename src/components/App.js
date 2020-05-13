@@ -244,7 +244,7 @@ class App extends React.Component {
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState">
-              <Form.Label>Parameter 1</Form.Label>
+              <Form.Label>Parameter 1 ascending order</Form.Label>
               <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
               <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
