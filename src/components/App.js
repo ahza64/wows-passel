@@ -161,9 +161,9 @@ class App extends React.Component {
       let currentOrderedLabels = this.state.chartData.labels;
       let newUnorderedLabels = data.labels;
       let newUnorderedValues = data.datasets[0].data;
-      newUnorderedLabels.forEach((element, index) => {
-        let currentLabelPosition = currentOrderedLabels.indexOf(element);
-        newOrderedValues[currentLabelPosition] = newUnorderedValues[index];
+      newUnorderedLabels.forEach((label, labelIndex) => {
+        let currentLabelPosition = currentOrderedLabels.indexOf(label);
+        newOrderedValues[currentLabelPosition] = newUnorderedValues[labelIndex];
       });
       data.datasets[0].data = newOrderedValues;
       console.log("data", data);
@@ -255,6 +255,10 @@ class App extends React.Component {
                 <option value="traverse">Turret Traverse</option>
                 <option value="rudder">Rudder Shift</option>
                 <option value="fpm">Fires per min</option>
+                <option value="turnradius">Turn Radius</option>
+                <option value="fpm">AP DPM</option>
+                <option value="fpm">AP Alpha</option>
+                <option value="fpm">Top speed</option>
               </Form.Control>
             </Form.Group>
             <Form.Group as={Col} controlId="formGridState">
