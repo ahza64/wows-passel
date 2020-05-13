@@ -1,15 +1,11 @@
 const db = require('../models/ship.js');
 
-exports.shipsHEAlpha = function (req, res) {
-  console.log("get ships HE Alpha pinged", req.params.type);
+exports.shipsAPAlpha = function (req, res) {
+  console.log("get ships AP Alpha pinged", req.params.type);
 
   let query = {
     tier: parseInt(req.params.tier),
     type: req.params.type
-  };
-  let neededShipParams = {
-    name: 1,
-    "default_profile.concealment.detect_distance_by_ship": 1
   };
 
   let pipeline = [
@@ -18,16 +14,30 @@ exports.shipsHEAlpha = function (req, res) {
       "type": 1,
       "tier": 1,
       "default_profile.artillery": 1,
-      "healpha": {
+      "apalpha": {
         $multiply: [
-          "$default_profile.artillery.shells.HE.damage",
-          "$default_profile.artillery.slots.0.guns",
-          "$default_profile.artillery.slots.0.barrels"
+          "$default_profile.artillery.shells.AP.damage",
+          {
+            $add: [
+              {
+                $multiply: [
+                  "$default_profile.artillery.slots.0.guns",
+                  "$default_profile.artillery.slots.0.barrels"
+                ]
+              },
+              {
+                $multiply: [
+                  {"$ifNull": ["$default_profile.artillery.slots.1.guns", 1]},
+                  {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 1]}
+                ]
+              }
+            ]
+          }
         ]
       }
     }},
     {$match: query},
-    {$sort: {"healpha": 1}}
+    {$sort: {"apalpha": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -41,7 +51,7 @@ exports.shipsHEAlpha = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.healpha);
+      data.push(ship.apalpha);
 
     });
 
@@ -49,8 +59,8 @@ exports.shipsHEAlpha = function (req, res) {
       labels: labels,
       datasets: [
         {
-          label: 'HE Alpha',
-          backgroundColor: 'orange',
+          label: 'AP Alpha',
+          backgroundColor: 'green',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data
