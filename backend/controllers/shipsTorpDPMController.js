@@ -33,7 +33,12 @@ exports.shipsTorpDPM = function (req, res) {
               }
             ]
           },
-          "$default_profile.torpedoes.reload_time"
+          {
+            $divide: [
+              60,
+              "$default_profile.torpedoes.reload_time"
+            ]
+          }
         ]
       }
     }},
