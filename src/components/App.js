@@ -18,6 +18,7 @@ class App extends React.Component {
       tier: 3,
       field: "concealments",
       field2: "----",
+      field3: "----",
       headerField: "Tier 3",
       chartData: {
         labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
@@ -81,6 +82,7 @@ class App extends React.Component {
         nation: `${this.state.nation}`,
         field: `${this.state.field}`,
         field2: "----",
+        field3: "----",
         headerField: `Tier ${e.target.value}`,
       })
     })
@@ -95,7 +97,8 @@ class App extends React.Component {
 
     this.setState({
       field: e.target.value,
-      field2: "----"
+      field2: "----",
+      field3: "----",
     });
     fetch(`/ships/${e.target.value}/bytier/${this.state.tier}/${this.state.type}`)
     .then((res) => {
@@ -132,6 +135,7 @@ class App extends React.Component {
         nation: this.state.nation,
         field: this.state.field,
         field2: "----",
+        field3: "----",
         headerField: `Tier ${this.state.tier}`,
       })
     })
@@ -144,7 +148,9 @@ class App extends React.Component {
     e.preventDefault();
     e.persist();
 
-    this.setState({field2: e.target.value});
+    this.setState({
+      field2: e.target.value
+    });
     fetch(`/ships/${e.target.value}/bytier/${this.state.tier}/${this.state.type}`)
     .then((res) => {
       return res.json();
@@ -169,6 +175,45 @@ class App extends React.Component {
       console.log("data", data);
       let newChartData = this.state.chartData;
       newChartData.datasets[1] = data.datasets[0];
+      this.setState({
+        chartData: newChartData
+      });
+
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  handleParameter3Change(e) {
+    e.preventDefault();
+    e.persist();
+
+    this.setState({field3: e.target.value});
+    fetch(`/ships/${e.target.value}/bytier/${this.state.tier}/${this.state.type}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+
+
+      // reordering second param on the frontend is better than setting up dual
+      // routes and/or calculating dpm on the front end. it also is easy to
+      // abstract out, and scale with more parameters, which is planned in the near
+      // future of the app
+      let newOrderedValues = [];
+      let currentOrderedLabels = this.state.chartData.labels;
+      let newUnorderedLabels = data.labels;
+      let newUnorderedValues = data.datasets[0].data;
+      newUnorderedLabels.forEach((label, labelIndex) => {
+        let currentLabelPosition = currentOrderedLabels.indexOf(label);
+        newOrderedValues[currentLabelPosition] = newUnorderedValues[labelIndex];
+      });
+      data.datasets[0].data = newOrderedValues;
+      console.log("data", data);
+      let newChartData = this.state.chartData;
+      newChartData.datasets[2] = data.datasets[0];
       this.setState({
         chartData: newChartData
       });
@@ -267,6 +312,25 @@ class App extends React.Component {
             <Form.Group as={Col} controlId="formGridState">
               <Form.Label>Parameter 2</Form.Label>
               <Form.Control name="field2" as="select" onChange={e => this.handleParameter2Change(e)} value={this.state.field2}>
+                <option value="----">----</option>
+                <option value="concealments">Concealments</option>
+                <option value="hedpm">HE DPM</option>
+                <option value="apdpm">AP DPM</option>
+                <option value="torpdpm">Torp DPM</option>
+                <option value="healpha">HE Alpha</option>
+                <option value="apalpha">AP Alpha</option>
+                <option value="torpalpha">Torp Alpha</option>
+                <option value="hp">Hit Points</option>
+                <option value="fpm">Fires per min</option>
+                <option value="traverse">Turret Traverse</option>
+                <option value="rudder">Rudder Shift</option>
+                <option value="turnradius">Turn Radius</option>
+                <option value="fullspeed">Full Speed</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Parameter 3</Form.Label>
+              <Form.Control name="field3" as="select" onChange={e => this.handleParameter3Change(e)} value={this.state.field3}>
                 <option value="----">----</option>
                 <option value="concealments">Concealments</option>
                 <option value="hedpm">HE DPM</option>
