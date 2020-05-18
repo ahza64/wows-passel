@@ -308,25 +308,27 @@ class CompileGraph extends React.Component {
         <option value="fullspeed">Full Speed</option>
         </Form.Control>
         </Form.Group>
-        <Form.Group as={Col} controlId="formGridState">
-        <Form.Label>Parameter 3</Form.Label>
-        <Form.Control name="field3" as="select" onChange={e => this.handleParameter3Change(e)} value={this.state.field3}>
-        <option value="----">----</option>
-        <option value="concealments">Concealments</option>
-        <option value="hedpm">HE DPM</option>
-        <option value="apdpm">AP DPM</option>
-        <option value="torpdpm">Torp DPM</option>
-        <option value="healpha">HE Alpha</option>
-        <option value="apalpha">AP Alpha</option>
-        <option value="torpalpha">Torp Alpha</option>
-        <option value="hp">Hit Points</option>
-        <option value="fpm">Fires per min</option>
-        <option value="traverse">Turret Traverse</option>
-        <option value="rudder">Rudder Shift</option>
-        <option value="turnradius">Turn Radius</option>
-        <option value="fullspeed">Full Speed</option>
-        </Form.Control>
-        </Form.Group>
+        {this.state.field2 !== "----" &&
+          <Form.Group as={Col} controlId="formGridState">
+          <Form.Label>Parameter 3</Form.Label>
+          <Form.Control name="field3" as="select" onChange={e => this.handleParameter3Change(e)} value={this.state.field3}>
+          <option value="----">----</option>
+          <option value="concealments">Concealments</option>
+          <option value="hedpm">HE DPM</option>
+          <option value="apdpm">AP DPM</option>
+          <option value="torpdpm">Torp DPM</option>
+          <option value="healpha">HE Alpha</option>
+          <option value="apalpha">AP Alpha</option>
+          <option value="torpalpha">Torp Alpha</option>
+          <option value="hp">Hit Points</option>
+          <option value="fpm">Fires per min</option>
+          <option value="traverse">Turret Traverse</option>
+          <option value="rudder">Rudder Shift</option>
+          <option value="turnradius">Turn Radius</option>
+          <option value="fullspeed">Full Speed</option>
+          </Form.Control>
+          </Form.Group>
+        }
         </Form.Row>
         </Form>
       </div>
