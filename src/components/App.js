@@ -5,6 +5,7 @@ import {Button} from 'react-bootstrap';
 import {Container} from 'react-bootstrap';
 
 import CompileGraph from './shipsCompile';
+import CompareGraph from './shipsCompare';
 
 import '../index.css';
 
@@ -45,8 +46,8 @@ class App extends React.Component {
           <Form.Row>
           <Form.Group as={Col} controlId="formGridCity">
           <Form.Control name="type" as="select" onChange={e => this.handleGraphTypeChange(e)} value={this.state.graphType}>
-          <option value="compile">Compile Graph</option>
-          <option value="compare">Compare Graph</option>
+            <option value="compile">Compile Graph</option>
+            <option value="compare">Compare Graph</option>
           </Form.Control>
           </Form.Group>
           </Form.Row>
@@ -54,6 +55,9 @@ class App extends React.Component {
         </h1>
         {this.state.graphType === "compile" &&
           <CompileGraph />
+        }
+        {this.state.graphType === "compare" &&
+          <CompareGraph />
         }
       </Container>
     </div>
