@@ -35,12 +35,12 @@ exports.shipsCompare = function (req, res) {
     }
 
     var data = [
-      ship[0].default_profile.hull.health,
+      ship[0].default_profile.hull.health / 1000,
       ship[0].default_profile.concealment.detect_distance_by_ship,
       ship[0].default_profile.artillery.rotation_time,
       ship[0].default_profile.mobility.rudder_time,
       ship[0].default_profile.mobility.max_speed,
-      ship[0].default_profile.mobility.turning_radius,
+      ship[0].default_profile.mobility.turning_radius / 10,
       ship[0].fpm
     ];
 
