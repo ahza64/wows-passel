@@ -247,89 +247,89 @@ class CompileGraph extends React.Component {
         </p>
 
         <Form >
-        <Form.Row>
-        <Form.Group as={Col} controlId="formGridCity">
-        <Form.Label>Class</Form.Label>
-        <Form.Control name="type" as="select" onChange={e => this.handleTypeChange(e)} value={this.state.type}>
-        <option>Destroyer</option>
-        <option>Cruiser</option>
-        <option>Battleship</option>
-        </Form.Control>
-        </Form.Group>
-        <Form.Group as={Col} controlId="formGridState">
-        <Form.Label>Tier</Form.Label>
-        <Form.Control name="tier" as="select" onChange={e => this.handleTierChange(e)} value={this.state.tier}>
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-        <option>6</option>
-        <option>7</option>
-        <option>8</option>
-        <option>9</option>
-        <option>10</option>
-        </Form.Control>
-        </Form.Group>
-        <Form.Group as={Col} controlId="formGridState">
-        <Form.Label>Parameter 1 ascending order</Form.Label>
-        <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
-        <option value="concealments">Concealments</option>
-        <option value="hedpm">HE DPM</option>
-        <option value="apdpm">AP DPM</option>
-        <option value="torpdpm">Torp DPM</option>
-        <option value="healpha">HE Alpha</option>
-        <option value="apalpha">AP Alpha</option>
-        <option value="torpalpha">Torp Alpha</option>
-        <option value="hp">Hit Points</option>
-        <option value="fpm">Fires per min</option>
-        <option value="traverse">Turret Traverse</option>
-        <option value="rudder">Rudder Shift</option>
-        <option value="turnradius">Turn Radius</option>
-        <option value="fullspeed">Full Speed</option>
-        </Form.Control>
-        </Form.Group>
-        <Form.Group as={Col} controlId="formGridState">
-        <Form.Label>Parameter 2</Form.Label>
-        <Form.Control name="field2" as="select" onChange={e => this.handleParameter2Change(e)} value={this.state.field2}>
-        <option value="----">----</option>
-        <option value="concealments">Concealments</option>
-        <option value="hedpm">HE DPM</option>
-        <option value="apdpm">AP DPM</option>
-        <option value="torpdpm">Torp DPM</option>
-        <option value="healpha">HE Alpha</option>
-        <option value="apalpha">AP Alpha</option>
-        <option value="torpalpha">Torp Alpha</option>
-        <option value="hp">Hit Points</option>
-        <option value="fpm">Fires per min</option>
-        <option value="traverse">Turret Traverse</option>
-        <option value="rudder">Rudder Shift</option>
-        <option value="turnradius">Turn Radius</option>
-        <option value="fullspeed">Full Speed</option>
-        </Form.Control>
-        </Form.Group>
-        {this.state.field2 !== "----" &&
-          <Form.Group as={Col} controlId="formGridState">
-          <Form.Label>Parameter 3</Form.Label>
-          <Form.Control name="field3" as="select" onChange={e => this.handleParameter3Change(e)} value={this.state.field3}>
-          <option value="----">----</option>
-          <option value="concealments">Concealments</option>
-          <option value="hedpm">HE DPM</option>
-          <option value="apdpm">AP DPM</option>
-          <option value="torpdpm">Torp DPM</option>
-          <option value="healpha">HE Alpha</option>
-          <option value="apalpha">AP Alpha</option>
-          <option value="torpalpha">Torp Alpha</option>
-          <option value="hp">Hit Points</option>
-          <option value="fpm">Fires per min</option>
-          <option value="traverse">Turret Traverse</option>
-          <option value="rudder">Rudder Shift</option>
-          <option value="turnradius">Turn Radius</option>
-          <option value="fullspeed">Full Speed</option>
-          </Form.Control>
-          </Form.Group>
-        }
-        </Form.Row>
+          <Form.Row>
+            <Form.Group as={Col} controlId="formGridCity">
+              <Form.Label>Class</Form.Label>
+              <Form.Control name="type" as="select" onChange={e => this.handleTypeChange(e)} value={this.state.type}>
+                <option>Destroyer</option>
+                <option>Cruiser</option>
+                <option>Battleship</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Tier</Form.Label>
+              <Form.Control name="tier" as="select" onChange={e => this.handleTierChange(e)} value={this.state.tier}>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Parameter 1 ascending order</Form.Label>
+              <Form.Control name="field" as="select" onChange={e => this.handleParameterChange(e)} value={this.state.field}>
+                <option value="concealments">Concealments</option>
+                <option value="hedpm">HE DPM</option>
+                <option value="apdpm">AP DPM</option>
+                <option value="torpdpm">Torp DPM</option>
+                <option value="healpha">HE Alpha</option>
+                <option value="apalpha">AP Alpha</option>
+                <option value="torpalpha">Torp Alpha</option>
+                <option value="hp">Hit Points</option>
+                <option value="fpm">Fires per min</option>
+                <option value="traverse">Turret Traverse</option>
+                <option value="rudder">Rudder Shift</option>
+                <option value="turnradius">Turn Radius</option>
+                <option value="fullspeed">Full Speed</option>
+              </Form.Control>
+            </Form.Group>
+            <Form.Group as={Col} controlId="formGridState">
+              <Form.Label>Parameter 2</Form.Label>
+              <Form.Control name="field2" as="select" onChange={e => this.handleParameter2Change(e)} value={this.state.field2}>
+                <option value="----">----</option>
+                <option value="concealments">Concealments</option>
+                <option value="hedpm">HE DPM</option>
+                <option value="apdpm">AP DPM</option>
+                <option value="torpdpm">Torp DPM</option>
+                <option value="healpha">HE Alpha</option>
+                <option value="apalpha">AP Alpha</option>
+                <option value="torpalpha">Torp Alpha</option>
+                <option value="hp">Hit Points</option>
+                <option value="fpm">Fires per min</option>
+                <option value="traverse">Turret Traverse</option>
+                <option value="rudder">Rudder Shift</option>
+                <option value="turnradius">Turn Radius</option>
+                <option value="fullspeed">Full Speed</option>
+              </Form.Control>
+            </Form.Group>
+            {this.state.field2 !== "----" &&
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Label>Parameter 3</Form.Label>
+                <Form.Control name="field3" as="select" onChange={e => this.handleParameter3Change(e)} value={this.state.field3}>
+                  <option value="----">----</option>
+                  <option value="concealments">Concealments</option>
+                  <option value="hedpm">HE DPM</option>
+                  <option value="apdpm">AP DPM</option>
+                  <option value="torpdpm">Torp DPM</option>
+                  <option value="healpha">HE Alpha</option>
+                  <option value="apalpha">AP Alpha</option>
+                  <option value="torpalpha">Torp Alpha</option>
+                  <option value="hp">Hit Points</option>
+                  <option value="fpm">Fires per min</option>
+                  <option value="traverse">Turret Traverse</option>
+                  <option value="rudder">Rudder Shift</option>
+                  <option value="turnradius">Turn Radius</option>
+                  <option value="fullspeed">Full Speed</option>
+                </Form.Control>
+              </Form.Group>
+            }
+          </Form.Row>
         </Form>
       </div>
       <div>,</div>
