@@ -1,7 +1,7 @@
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
-exports.shipsAPAlpha = function (req, res) {
-  console.log("get ships AP Alpha pinged", req.params.type);
+exports.shipsAPDPM = function (req, res) {
+  console.log("get ships hedpm by tier pinged", req.params.type);
 
   let query = {
     tier: parseInt(req.params.tier),
@@ -14,7 +14,7 @@ exports.shipsAPAlpha = function (req, res) {
       "type": 1,
       "tier": 1,
       "default_profile.artillery": 1,
-      "apalpha": {
+      "apdpm": {
         $multiply: [
           "$default_profile.artillery.shells.AP.damage",
           {
@@ -32,17 +32,18 @@ exports.shipsAPAlpha = function (req, res) {
                 ]
               }
             ]
-          }
+          },
+          "$default_profile.artillery.gun_rate"
         ]
       }
     }},
     {$match: query},
-    {$sort: {"apalpha": 1}}
+    {$sort: {"apdpm": 1}}
   ]
 
   db.aggregate(pipeline)
   .exec(function(err, ships){
-    console.log(ships[0]);
+    console.log(ships, "ships from DB");
     if (err || !ships || !ships.length) {
       return res.status(404).send({message: 'Ships not found.', err});
     }
@@ -51,16 +52,15 @@ exports.shipsAPAlpha = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.apalpha);
-
+      data.push(ship.apdpm);
     });
 
     let chartData = {
       labels: labels,
       datasets: [
         {
-          label: 'AP Alpha',
-          backgroundColor: 'green',
+          label: 'AP DPM',
+          backgroundColor: 'lightGreen',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data

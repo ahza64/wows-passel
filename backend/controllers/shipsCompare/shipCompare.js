@@ -1,22 +1,21 @@
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
-exports.shipsHEAlpha = function (req, res) {
-  console.log("get ships HE Alpha pinged", req.params.type);
+exports.shipsCompare = function (req, res) {
+  console.log("get ships Compare pinged", req.params.name);
 
   let query = {
-    tier: parseInt(req.params.tier),
-    type: req.params.type
+    name: req.params.name
   };
 
   let pipeline = [
     {$project: {
       "name": 1,
-      "type": 1,
+      "name": 1,
       "tier": 1,
       "default_profile.artillery": 1,
-      "healpha": {
+      "apalpha": {
         $multiply: [
-          "$default_profile.artillery.shells.HE.damage",
+          "$default_profile.artillery.shells.AP.damage",
           {
             $add: [
               {
@@ -37,7 +36,7 @@ exports.shipsHEAlpha = function (req, res) {
       }
     }},
     {$match: query},
-    {$sort: {"healpha": 1}}
+    {$sort: {"apalpha": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -51,7 +50,7 @@ exports.shipsHEAlpha = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.healpha);
+      data.push(ship.apalpha);
 
     });
 
@@ -59,8 +58,8 @@ exports.shipsHEAlpha = function (req, res) {
       labels: labels,
       datasets: [
         {
-          label: 'HE Alpha',
-          backgroundColor: 'orange',
+          label: 'AP Alpha',
+          backgroundColor: 'green',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data

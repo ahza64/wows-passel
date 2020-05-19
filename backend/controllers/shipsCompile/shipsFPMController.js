@@ -1,4 +1,4 @@
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
 exports.shipsFPM = function (req, res) {
   console.log("get ships fpm by tier pinged", req.params.type);

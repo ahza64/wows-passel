@@ -1,18 +1,20 @@
 const fetch = require('node-fetch');
 const express = require('express');
-const shipsController = require('../../controllers/shipsConcealmentsController.js');
-const shipsHEDPMController = require('../../controllers/shipsHEDPMController.js');
-const shipsHEALPHAController = require('../../controllers/shipsHEALPHAController.js');
-const shipsTraverseController = require('../../controllers/shipsTraverseController.js');
-const shipsRudderController = require('../../controllers/shipsRudderController.js');
-const shipsFPMController = require('../../controllers/shipsFPMController.js');
-const shipsTurnRadiusController = require('../../controllers/shipsTurnRadiusController.js');
-const shipsFullSpeedController = require('../../controllers/shipsFullSpeedController.js');
-const shipsAPDPMController = require('../../controllers/shipsAPDPMController.js');
-const shipsAPALPHAController = require('../../controllers/shipsAPALPHAController.js');
-const shipsHPController = require('../../controllers/shipsHPController.js');
-const shipsTorpDPMController = require('../../controllers/shipsTorpDPMController.js');
-const shipsTorpALPHAController = require('../../controllers/shipsTorpALPHAController.js');
+const shipsController = require('../../controllers/shipsCompile/shipsConcealmentsController.js');
+const shipsHEDPMController = require('../../controllers/shipsCompile/shipsHEDPMController.js');
+const shipsHEALPHAController = require('../../controllers/shipsCompile/shipsHEALPHAController.js');
+const shipsTraverseController = require('../../controllers/shipsCompile/shipsTraverseController.js');
+const shipsRudderController = require('../../controllers/shipsCompile/shipsRudderController.js');
+const shipsFPMController = require('../../controllers/shipsCompile/shipsFPMController.js');
+const shipsTurnRadiusController = require('../../controllers/shipsCompile/shipsTurnRadiusController.js');
+const shipsFullSpeedController = require('../../controllers/shipsCompile/shipsFullSpeedController.js');
+const shipsAPDPMController = require('../../controllers/shipsCompile/shipsAPDPMController.js');
+const shipsAPALPHAController = require('../../controllers/shipsCompile/shipsAPALPHAController.js');
+const shipsHPController = require('../../controllers/shipsCompile/shipsHPController.js');
+const shipsTorpDPMController = require('../../controllers/shipsCompile/shipsTorpDPMController.js');
+const shipsTorpALPHAController = require('../../controllers/shipsCompile/shipsTorpALPHAController.js');
+
+const shipController = require('../../controllers/shipsCompare/shipCompare.js');
 
 const router = express.Router();
 
@@ -30,5 +32,7 @@ router.get('/ships/apalpha/bytier/:tier/:type', shipsAPALPHAController.shipsAPAl
 router.get('/ships/hp/bytier/:tier/:type', shipsHPController.shipsHP);
 router.get('/ships/torpdpm/bytier/:tier/:type', shipsTorpDPMController.shipsTorpDPM);
 router.get('/ships/torpalpha/bytier/:tier/:type', shipsTorpALPHAController.shipsTorpAlpha);
+
+router.get('/ship/:name', shipController.shipsCompare);
 
 module.exports = router;

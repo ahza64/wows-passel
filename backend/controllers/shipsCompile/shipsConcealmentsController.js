@@ -1,7 +1,7 @@
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
-exports.shipsTurnRadius = function (req, res) {
-  console.log("get ships traverse pinged", req.params.type);
+exports.shipsConcealments = function (req, res) {
+  console.log("get ships concealments pinged", req.params.type);
 
   let query = {
     tier: parseInt(req.params.tier),
@@ -9,13 +9,13 @@ exports.shipsTurnRadius = function (req, res) {
   };
   let neededShipParams = {
     name: 1,
-    "default_profile.mobility.turning_radius": 1
+    "default_profile.concealment.detect_distance_by_ship": 1
   };
 
   let pipeline = [
     {$match: query},
     {$project: neededShipParams},
-    {$sort: {"default_profile.mobility.turning_radius": 1}}
+    {$sort: {"default_profile.concealment.detect_distance_by_ship": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -29,7 +29,7 @@ exports.shipsTurnRadius = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.default_profile.mobility.turning_radius);
+      data.push(ship.default_profile.concealment.detect_distance_by_ship);
 
     });
 
@@ -37,8 +37,8 @@ exports.shipsTurnRadius = function (req, res) {
       labels: labels,
       datasets: [
         {
-          label: 'Turn Radius',
-          backgroundColor: 'mediumPurple',
+          label: 'Concealment',
+          backgroundColor: 'aquamarine',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data

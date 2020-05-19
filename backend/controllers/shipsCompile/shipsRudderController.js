@@ -1,7 +1,7 @@
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
-exports.shipsConcealments = function (req, res) {
-  console.log("get ships concealments pinged", req.params.type);
+exports.shipsRudder = function (req, res) {
+  console.log("get ships rudder pinged", req.params.type);
 
   let query = {
     tier: parseInt(req.params.tier),
@@ -9,13 +9,13 @@ exports.shipsConcealments = function (req, res) {
   };
   let neededShipParams = {
     name: 1,
-    "default_profile.concealment.detect_distance_by_ship": 1
+    "default_profile.mobility.rudder_time": 1
   };
 
   let pipeline = [
     {$match: query},
     {$project: neededShipParams},
-    {$sort: {"default_profile.concealment.detect_distance_by_ship": 1}}
+    {$sort: {"default_profile.mobility.rudder_time": 1}}
   ]
 
   db.aggregate(pipeline)
@@ -29,7 +29,7 @@ exports.shipsConcealments = function (req, res) {
     var data = [];
     ships.forEach(function(ship) {
       labels.push(ship.name);
-      data.push(ship.default_profile.concealment.detect_distance_by_ship);
+      data.push(ship.default_profile.mobility.rudder_time);
 
     });
 
@@ -37,8 +37,8 @@ exports.shipsConcealments = function (req, res) {
       labels: labels,
       datasets: [
         {
-          label: 'Concealment',
-          backgroundColor: 'aquamarine',
+          label: 'Rudder Shift',
+          backgroundColor: 'blue',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
           data: data

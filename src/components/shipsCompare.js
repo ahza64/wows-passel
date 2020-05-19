@@ -1,47 +1,39 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 
-const data = {
-	labels: ['Hit Points/1000', 'Concealment', 'Turret Traverse', 'Rudder Shift', 'Full Speed', 'Turn Radius/10', 'Fires per Minute'],
-	datasets: [
-		{
-			label: 'Des Moines',
-			backgroundColor: 'rgba(179,181,198,0.2)',
-			borderColor: 'rgba(179,181,198,1)',
-			pointBackgroundColor: 'rgba(179,181,198,1)',
-			pointBorderColor: '#fff',
-			pointHoverBackgroundColor: '#fff',
-			pointHoverBorderColor: 'rgba(179,181,198,1)',
-			data: [50.6, 13.9, 30, 8.6, 33, 77.0, 13.734]
-		},
-		{
-			label: 'Montana',
-			backgroundColor: 'rgba(255,99,132,0.2)',
-			borderColor: 'rgba(255,99,132,1)',
-			pointBackgroundColor: 'rgba(255,99,132,1)',
-			pointBorderColor: '#fff',
-			pointHoverBackgroundColor: '#fff',
-			pointHoverBorderColor: 'rgba(255,99,132,1)',
-			data: [96.3, 17.8, 45, 22.2, 30, 95.0, 8.64]
-		}
-	]
-};
-
-
 class CompareGraph extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      ships: [],
-      type: "Cruiser",
-      nation: "usa",
-      tier: 5,
-      field: "concealments",
-      field2: "----",
-      field3: "----",
-      headerField: "Tier 3",
+      ship1: '',
+      ship2: '',
       chartData: {
+      	labels: ['Hit Points/1000', 'Concealment', 'Turret Traverse', 'Rudder Shift', 'Full Speed', 'Turn Radius/10', 'Fires per Minute'],
+      	datasets: [
+      		{
+      			label: 'Des Moines',
+      			backgroundColor: 'rgba(179,181,198,0.2)',
+      			borderColor: 'rgba(179,181,198,1)',
+      			pointBackgroundColor: 'rgba(179,181,198,1)',
+      			pointBorderColor: '#fff',
+      			pointHoverBackgroundColor: '#fff',
+      			pointHoverBorderColor: 'rgba(179,181,198,1)',
+      			data: [50.6, 13.9, 30, 8.6, 33, 77.0, 13.734]
+      		},
+      		{
+      			label: 'Montana',
+      			backgroundColor: 'rgba(255,99,132,0.2)',
+      			borderColor: 'rgba(255,99,132,1)',
+      			pointBackgroundColor: 'rgba(255,99,132,1)',
+      			pointBorderColor: '#fff',
+      			pointHoverBackgroundColor: '#fff',
+      			pointHoverBorderColor: 'rgba(255,99,132,1)',
+      			data: [96.3, 17.8, 45, 22.2, 30, 95.0, 8.64]
+      		}
+      	]
+      },
+      chartData1: {
         labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
         datasets: [
           {
@@ -57,31 +49,42 @@ class CompareGraph extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`/ships/${this.state.field}/bytier/${this.state.tier}/${this.state.type}`)
+    fetch(`/ship/Des Moines`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       console.log("update successful", data);
       this.setState({
-        chartData: data,
-        tier: 3,
-        nation: this.state.nation,
-        field: this.state.field,
-        headerField: `Tier ${this.state.tier}`,
+        ship1: data
+      })
+    })
+    .catch( err => {
+      console.log(err);
+    });
+
+    fetch(`/ship/Montana`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("update successful", data);
+      this.setState({
+        ship2: data
       })
     })
     .catch( err => {
       console.log(err);
     });
   }
+
   render() {
 		return (
 			<div className="flex flex-col items-center w-full max-w-md">
 				<h2>Radar Hard Data Sample</h2>
 				<Radar
           id="container"
-          data={data}
+          data={this.state.chartData}
           options={{
             scale: {
               angleLines: {

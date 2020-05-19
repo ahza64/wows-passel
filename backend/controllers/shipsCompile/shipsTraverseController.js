@@ -1,4 +1,4 @@
-const db = require('../models/ship.js');
+const db = require('../../models/ship.js');
 
 exports.shipsTraverse = function (req, res) {
   console.log("get ships traverse pinged", req.params.type);
