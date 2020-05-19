@@ -12,62 +12,54 @@ exports.shipsCompare = function (req, res) {
       "name": 1,
       "name": 1,
       "tier": 1,
-      "default_profile.artillery": 1,
-      "apalpha": {
+      "default_profile": 1,
+      "fpm": {
         $multiply: [
-          "$default_profile.artillery.shells.AP.damage",
-          {
-            $add: [
-              {
-                $multiply: [
-                  "$default_profile.artillery.slots.0.guns",
-                  "$default_profile.artillery.slots.0.barrels"
-                ]
-              },
-              {
-                $multiply: [
-                  {"$ifNull": ["$default_profile.artillery.slots.1.guns", 1]},
-                  {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 1]}
-                ]
-              }
-            ]
-          }
+          {"$divide": ["$default_profile.artillery.shells.HE.burn_probability", 100]},
+          "$default_profile.artillery.slots.0.guns",
+          "$default_profile.artillery.slots.0.barrels",
+          {"$ifNull": ["$default_profile.artillery.slots.1.guns", 1]},
+          {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 1]},
+          "$default_profile.artillery.gun_rate"
         ]
       }
     }},
-    {$match: query},
-    {$sort: {"apalpha": 1}}
+    {$match: query}
   ]
 
   db.aggregate(pipeline)
-  .exec(function(err, ships){
-    console.log(ships[0]);
-    if (err || !ships || !ships.length) {
+  .exec(function(err, ship){
+    console.log(ship[0]);
+    if (err || !ship || !ship.length) {
       return res.status(404).send({message: 'Ships not found.', err});
     }
 
-    var labels = [];
-    var data = [];
-    ships.forEach(function(ship) {
-      labels.push(ship.name);
-      data.push(ship.apalpha);
+    var data = [
+      ship[0].default_profile.hull.health,
+      ship[0].default_profile.concealment.detect_distance_by_ship,
+      ship[0].default_profile.artillery.rotation_time,
+      ship[0].default_profile.mobility.rudder_time,
+      ship[0].default_profile.mobility.max_speed,
+      ship[0].default_profile.mobility.turning_radius,
+      ship[0].fpm
+    ];
 
-    });
 
-    let chartData = {
-      labels: labels,
-      datasets: [
+    let dataset = [
         {
-          label: 'AP Alpha',
-          backgroundColor: 'green',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
+          label: ship[0].name,
+          backgroundColor: 'rgba(179,181,198,0.2)',
+          borderColor: 'rgba(179,181,198,1)',
+          pointBackgroundColor: 'rgba(179,181,198,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(179,181,198,1)',
           data: data
         }
       ]
-    }
 
-    res.send(chartData);
+
+    res.send(dataset);
   });
 
 };
