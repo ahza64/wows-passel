@@ -12,7 +12,7 @@ class CompareGraph extends React.Component {
       	labels: ['Hit Points/1000', 'Concealment', 'Turret Traverse', 'Rudder Shift', 'Full Speed', 'Turn Radius/10', 'Fires per Minute'],
       	datasets: [
       		{
-      			label: 'Des Moines',
+      			label: 'des Moines',
       			backgroundColor: 'rgba(179,181,198,0.2)',
       			borderColor: 'rgba(179,181,198,1)',
       			pointBackgroundColor: 'rgba(179,181,198,1)',
@@ -22,7 +22,7 @@ class CompareGraph extends React.Component {
       			data: [50.6, 13.9, 30, 8.6, 33, 77.0, 13.734]
       		},
       		{
-      			label: 'Montana',
+      			label: 'montana',
       			backgroundColor: 'rgba(255,99,132,0.2)',
       			borderColor: 'rgba(255,99,132,1)',
       			pointBackgroundColor: 'rgba(255,99,132,1)',
@@ -32,32 +32,34 @@ class CompareGraph extends React.Component {
       			data: [96.3, 17.8, 45, 22.2, 30, 95.0, 8.64]
       		}
       	]
-      },
-      chartData1: {
-        labels: ["Erie", "Chester", "Albany", "St Louis", "Atlanta"],
-        datasets: [
-          {
-            label: 'Concealment',
-            backgroundColor: 'rgba(75,192,192,1)',
-            borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
-            data: [8.3, 8.5, 8.8, 11, 11]
-          }
-        ]
       }
     }
   }
 
   componentDidMount() {
+    let ship1 = {
+      label: 'dm',
+      data: []
+    };
+    let ship2 = {
+      label: 'm',
+      data:[]
+    };
+    const chartData11 = this.state.chartData;
+    const current = chartData11;
+
     fetch(`/ship/Des Moines`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data);
+      console.log("update successful", data[0]);
+      current.datasets[0].data = data[0].data;
+      current.datasets[0].label = data[0].label;
+      console.log("current", current);
       this.setState({
-        ship1: data
-      })
+        chartData: current
+      });
     })
     .catch( err => {
       console.log(err);
@@ -68,15 +70,18 @@ class CompareGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data);
+      console.log("update successful", data[0], ship1);
+      current.datasets[1].data = data[0].data;
+      current.datasets[1].label = data[0].label;
+      console.log("current", current);
       this.setState({
-        ship2: data
-      })
+        chartData: current
+      });
     })
     .catch( err => {
       console.log(err);
     });
-    
+
   }
 
   render() {
