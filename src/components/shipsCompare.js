@@ -37,14 +37,7 @@ class CompareGraph extends React.Component {
   }
 
   componentDidMount() {
-    let ship1 = {
-      label: 'dm',
-      data: []
-    };
-    let ship2 = {
-      label: 'm',
-      data:[]
-    };
+
     const chartData11 = this.state.chartData;
     const current = chartData11;
 
@@ -70,7 +63,7 @@ class CompareGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data[0], ship1);
+      console.log("update successful", data[0]);
       current.datasets[1].data = data[0].data;
       current.datasets[1].label = data[0].label;
       console.log("current", current);
@@ -87,7 +80,7 @@ class CompareGraph extends React.Component {
   render() {
 		return (
 			<div className="flex flex-col items-center w-full max-w-md">
-				<h2>Radar Hard Data Sample</h2>
+				<h2>Radar Live Data Sample</h2>
 				<Radar
           id="container"
           data={this.state.chartData}
