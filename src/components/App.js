@@ -49,7 +49,7 @@ class App extends React.Component {
           <Form.Control name="type" as="select" onChange={e => this.handleGraphTypeChange(e)} value={this.state.graphType}>
             <option value="compile">Compile Graph</option>
             <option value="compare">Compare Graph</option>
-            <option value="details">Details Graph</option>
+
           </Form.Control>
           </Form.Group>
           </Form.Row>
