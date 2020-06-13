@@ -17,10 +17,22 @@ exports.shipsFPM = function (req, res) {
       "fpm": {
         $multiply: [
           {"$divide": ["$default_profile.artillery.shells.HE.burn_probability", 100]},
-          "$default_profile.artillery.slots.0.guns",
-          "$default_profile.artillery.slots.0.barrels",
-          {"$ifNull": ["$default_profile.artillery.slots.1.guns", 1]},
-          {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 1]},
+          {
+            $add: [
+              {
+                $multiply: [
+                  "$default_profile.artillery.slots.0.guns",
+                  "$default_profile.artillery.slots.0.barrels"
+                ]
+              },
+              {
+                $multiply: [
+                  {"$ifNull": ["$default_profile.artillery.slots.1.guns", 0]},
+                  {"$ifNull": ["$default_profile.artillery.slots.1.barrels", 0]}
+                ]
+              }
+            ]
+          },
           "$default_profile.artillery.gun_rate"
         ]
       }
