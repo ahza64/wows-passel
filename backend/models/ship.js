@@ -175,7 +175,18 @@ var shipSchema = new Schema({
       torpedoes: Number
     }
   },
-  upgrades: Array
+  upgrades: Array,
+  modules: {
+    engine: Array,
+    torpedo_bomber: Array,
+    fighter: Array,
+    hull: Array,
+    artillery: Array,
+    torpedoes: Array,
+    fire_control: Array,
+    flight_control: Array,
+    dive_bomber: Array
+  }
 }, { typeKey: '$type' });
 
 var Ship = mongoose.model('Ship', shipSchema);

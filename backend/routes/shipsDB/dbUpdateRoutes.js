@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const db = require('../../models/ship.js');
+const dbm = require('../../models/shipModules.js');
 
 module.exports = function (app) {
   app.get('/db/updateDB', function (req, res) {
@@ -20,6 +21,27 @@ module.exports = function (app) {
       }
       return convertObjectToArray(resJson.data);
     }).then((shipList) => {
+
+      shipList.forEach((ship) => {
+        var shipMods = ship.modules;
+        Object.keys(shipMods).forEach((modulekey) => {
+          if (shipMods[modulekey].length > 0) {
+            dbm.find({module_id: shipMods[modulekey][0]}, (err, shipMod) => {
+              if(err) {
+                console.log('Error occurred in ships remove', err);
+              } else {
+                ship.modules[modulekey] = shipMod;
+              }
+            });
+          }else{
+            // handle cases with more than 1 or 0 modules in the array
+            // no mdules can skip and make go faster
+            // more than one, can look at 2, or go for all?
+            // are there any with more than 2 module upgrades?
+          }
+        });
+      });
+
       shipStore = shipStore.concat(shipList);
       if (shipList.length < 100) {
         console.log("sending ships");
@@ -47,6 +69,27 @@ module.exports = function (app) {
         }
         return convertObjectToArray(resJson.data);
       }).then((shipList) => {
+
+        shipList.forEach((ship) => {
+          var shipMods = ship.modules;
+          Object.keys(shipMods).forEach((modulekey) => {
+            if (shipMods[modulekey].length > 0) {
+              dbm.find({module_id: shipMods[modulekey][0]}, (err, shipMod) => {
+                if(err) {
+                  console.log('Error occurred in ships remove', err);
+                } else {
+                  ship.modules[modulekey] = shipMod;
+                }
+              });
+            }else{
+              // handle cases with more than 1 or 0 modules in the array
+              // no mdules can skip and make go faster
+              // more than one, can look at 2, or go for all?
+              // are there any with more than 2 module upgrades?
+            }
+          });
+        });
+
         shipStore = shipStore.concat(shipList);
         if (shipList.length < 100) {
           console.log("sending ships");
