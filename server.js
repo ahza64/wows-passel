@@ -8,6 +8,7 @@ const app = express();
 
 const apiWGRouter = require('./backend/routes/wgAPI/apiWGRoutes.js');
 const dbUpdateRouter = require('./backend/routes/shipsDB/dbUpdateRoutes.js');
+const dbUpdateModulesRouter = require('./backend/routes/shipModulesDB/shipModulesDBUpdateRoutes.js');
 const shipsRouter = require('./backend/routes/shipsDB/shipsRoutes.js');
 
 require('dotenv').config();
@@ -20,6 +21,7 @@ app.get('/', function (req, res) {
 
 apiWGRouter(app);
 dbUpdateRouter(app);
+dbUpdateModulesRouter(app);
 app.use(shipsRouter);
 
 mongoose.connect( process.env.MONGODB_URI ||

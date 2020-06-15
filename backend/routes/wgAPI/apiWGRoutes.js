@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
 module.exports = function (app) {
-
+//legacy file
   app.get('/api/wg/:type/:nation/:fields', function (req, res) {
     var url = `https://api.worldofwarships.com/wows/encyclopedia/ships/?type=${req.params.type}&nation=${req.params.nation}&application_id=${process.env.WOWS_APP_ID}`;
 

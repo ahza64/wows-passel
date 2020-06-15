@@ -19,9 +19,20 @@ class App extends React.Component {
     }
   }
 
-  updateDB(e) {
+  updateShipsDB(e) {
     e.preventDefault();
     fetch(`/db/updateDB`)
+    .then((data) => {
+      console.log("update successful");
+    })
+    .catch( err => {
+      console.log(err);
+    });
+  }
+
+  updateModulesDB(e) {
+    e.preventDefault();
+    fetch(`/db/updateModulesDB`)
     .then((data) => {
       console.log("update successful");
     })
@@ -41,7 +52,8 @@ class App extends React.Component {
     <div id="background" >
       <Container>
         <h1 id="title">
-          <Button variant="outline-secondary" onClick={e => this.updateDB(e)}>update DB</Button>
+          <Button variant="outline-secondary" onClick={e => this.updateShipsDB(e)}>update ship DB</Button>
+          <Button variant="outline-secondary" onClick={e => this.updateModulesDB(e)}>update modules DB</Button>
           World of Warships data visualisation
           <Form >
           <Form.Row>
@@ -49,7 +61,7 @@ class App extends React.Component {
           <Form.Control name="type" as="select" onChange={e => this.handleGraphTypeChange(e)} value={this.state.graphType}>
             <option value="compile">Compile Graph</option>
             <option value="compare">Compare Graph</option>
-
+            <option value="detail">Detail Graph</option>
           </Form.Control>
           </Form.Group>
           </Form.Row>
@@ -61,7 +73,7 @@ class App extends React.Component {
         {this.state.graphType === "compare" &&
           <CompareGraph />
         }
-        {this.state.graphType === "details" &&
+        {this.state.graphType === "detail" &&
           <DetailsGraph />
         }
       </Container>

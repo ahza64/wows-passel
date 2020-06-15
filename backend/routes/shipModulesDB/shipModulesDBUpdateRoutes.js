@@ -1,13 +1,13 @@
 const fetch = require('node-fetch');
-const db = require('../../models/modules.js');
+const db = require('../../models/shipModules.js');
 
 module.exports = function (app) {
-  app.get('/db/updateDB', function (req, res) {
-    console.log("update DB pinged");
-    let shipStore = [];
+  app.get('/db/updateModulesDB', function (req, res) {
+    console.log("update modules DB pinged");
+    let moduleStore = [];
     let pageCount = 1;
 
-    fetch('https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + process.env.WOWS_APP_ID + '&page_no=1')
+    fetch('https://api.worldofwarships.com/wows/encyclopedia/modules/?application_id=' + process.env.WOWS_APP_ID + '&page_no=1')
     .then((res) => {
       return res.json()
     })
@@ -19,12 +19,12 @@ module.exports = function (app) {
         });
       }
       return convertObjectToArray(resJson.data);
-    }).then((shipList) => {
-      shipStore = shipStore.concat(shipList);
-      if (shipList.length < 100) {
-        console.log("sending ships");
-        res.send(shipStore);
-        createShip(shipStore);
+    }).then((moduleList) => {
+      moduleStore = moduleStore.concat(moduleList);
+      if (moduleList.length < 100) {
+        console.log("sending ship modules");
+        res.send(moduleStore);
+        createModule(moduleStore);
       } else {
         pageCount++;
         getNextPage(pageCount);
@@ -35,7 +35,7 @@ module.exports = function (app) {
     });
     // refactor to pick up data from dedicated DB, GET WG API data and transpose to dedicated DB
     function getNextPage(n) {
-      fetch('https://api.worldofwarships.com/wows/encyclopedia/ships/?application_id=' + process.env.WOWS_APP_ID + '&page_no=' + n)
+      fetch('https://api.worldofwarships.com/wows/encyclopedia/modules/?application_id=' + process.env.WOWS_APP_ID + '&page_no=' + n)
       .then((res) => {
         return res.json()
       })
@@ -46,12 +46,12 @@ module.exports = function (app) {
           });
         }
         return convertObjectToArray(resJson.data);
-      }).then((shipList) => {
-        shipStore = shipStore.concat(shipList);
-        if (shipList.length < 100) {
+      }).then((moduleList) => {
+        moduleStore = moduleStore.concat(moduleList);
+        if (moduleList.length < 100) {
           console.log("sending ships");
-          createShip(shipStore);
-          res.send(shipStore);
+          createModule(moduleStore);
+          res.send(moduleStore);
         } else {
           pageCount++;
           getNextPage(pageCount);
@@ -63,17 +63,17 @@ module.exports = function (app) {
     }
   });
 
-  function createShip(ships_list) {
-    db.remove({}, function(err, ships){
+  function createModule(modules_list) {
+    db.remove({}, function(err, modules){
       if(err) {
-        console.log('Error occurred in ships remove', err);
+        console.log('Error occurred in modules remove', err);
       } else {
-        console.log('removed all ships');
-        db.create(ships_list, function(err, ships){
+        console.log('removed all modules');
+        db.create(modules_list, function(err, modules){
           if (err) {
             return console.log('err', err);
           }
-          console.log("created", ships.length, "ships");
+          console.log("created", modules.length, "modules");
           // process.exit();
 
         });
