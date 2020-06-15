@@ -47,9 +47,9 @@ class CompareGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data[0]);
-      current.datasets[0].data = data[0].data;
-      current.datasets[0].label = data[0].label;
+      console.log("update successful", data);
+      current.datasets[0].data = data.dataset[0].data;
+      current.datasets[0].label = data.dataset[0].label;
       console.log("current", current);
       this.setState({
         chartData: current
@@ -64,9 +64,9 @@ class CompareGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data[0]);
-      current.datasets[1].data = data[0].data;
-      current.datasets[1].label = data[0].label;
+      console.log("update successful", data);
+      current.datasets[1].data = data.dataset[0].data;
+      current.datasets[1].label = data.dataset[0].label;
       console.log("current", current);
       this.setState({
         chartData: current
@@ -91,9 +91,9 @@ class CompareGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data[0]);
-      current.datasets[0].data = data[0].data;
-      current.datasets[0].label = data[0].label;
+      console.log("update successful", data);
+      current.datasets[0].data = data.dataset[0].data;
+      current.datasets[0].label = data.dataset[0].label;
       console.log("current", current);
       this.setState({
         chartData: current
@@ -118,9 +118,9 @@ class CompareGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
-      console.log("update successful", data[0]);
-      current.datasets[1].data = data[0].data;
-      current.datasets[1].label = data[0].label;
+      console.log("update successful", data);
+      current.datasets[1].data = data.dataset[0].data;
+      current.datasets[1].label = data.dataset[0].label;
       console.log("current", current);
       this.setState({
         chartData: current
@@ -149,10 +149,10 @@ class CompareGraph extends React.Component {
           }} />
           <Form>
             <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="enter first WG ship name" onChange={e => this.handleShip1Change(e)} value={this.state.ship1}/>
+              <Form.Control type="text" placeholder="enter first exact WG ship name" onChange={e => this.handleShip1Change(e)} value={this.state.ship1}/>
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="enter second WG ship name" onChange={e => this.handleShip2Change(e)} value={this.state.ship2}/>
+              <Form.Control type="text" placeholder="enter second exact WG ship name" onChange={e => this.handleShip2Change(e)} value={this.state.ship2}/>
             </Form.Group>
           </Form>
 			</div>

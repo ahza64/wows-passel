@@ -10,21 +10,25 @@ class DetailsGraph extends React.Component {
       ship1: '',
       ship2: '',
       chartData: {
-        labels: ["he dpm","fires per min","rudder shift","turret traverse"],
+        labels: ["hit points","HE DPM","AP DPM","Torp DPM"],
         datasets: [{
-            label: 'Base Hull A',
+            label: 'Base',
             backgroundColor: "#caf270",
             data: [60, 30, 20, 50],
         }, {
-            label: 'Hull B',
+            label: 'max ship modules',
             backgroundColor: "#45c490",
             data: [0, 0, 5, 10],
         }, {
-            label: 'gun module',
+            label: 'max upgrades',
             backgroundColor: "#008d93",
             data: [20, 10, 0, 0],
         }, {
-            label: 'fire signal flags',
+            label: 'max commander skills',
+            backgroundColor: "#2e5468",
+            data: [0, 10, 0, 0],
+        }, {
+            label: 'max singal flags',
             backgroundColor: "#2e5468",
             data: [0, 10, 0, 0],
         }]
@@ -33,12 +37,21 @@ class DetailsGraph extends React.Component {
   }
 
   componentDidMount() {
-    fetch(`ship/Montana`)
+    fetch(`ship/Fletcher`)
     .then((res) => {
       return res.json();
     })
     .then((data) => {
       console.log("component did moiunt", data);
+      // aggregate data here
+      console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
+      let chartData = this.state.chartData;
+      chartData.datasets[0].data[0] = data.default_profile.hull.health;
+      chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+
+      this.setState({
+        chartData: chartData
+      });
     })
     .catch(err => {
       console.log(err);
@@ -111,32 +124,6 @@ class DetailsGraph extends React.Component {
 
   }
 
-  handleShip2Change(e) {
-    e.preventDefault();
-    e.persist();
-    const chartData11 = this.state.chartData;
-    const current = chartData11;
-
-    this.setState({ship2: e.target.value});
-
-    fetch(`/ship/${e.target.value}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data[0]);
-      current.datasets[1].data = data[0].data;
-      current.datasets[1].label = data[0].label;
-      console.log("current", current);
-      this.setState({
-        chartData: current
-      });
-    })
-    .catch( err => {
-      console.log(err);
-    });
-  }
-
   render() {
 		return (
 			<div className="flex flex-col items-center w-full max-w-md">
@@ -174,9 +161,6 @@ class DetailsGraph extends React.Component {
           <Form>
             <Form.Group controlId="formBasicEmail">
               <Form.Control type="text" placeholder="enter first WG ship name" onChange={e => this.handleShip1Change(e)} value={this.state.ship1}/>
-            </Form.Group>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Control type="text" placeholder="enter second WG ship name" onChange={e => this.handleShip2Change(e)} value={this.state.ship2}/>
             </Form.Group>
           </Form>
 			</div>
