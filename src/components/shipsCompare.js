@@ -134,7 +134,6 @@ class CompareGraph extends React.Component {
   render() {
 		return (
 			<div className="flex flex-col items-center w-full max-w-md">
-				<h2>Radar Live Data Sample</h2>
 				<Radar
           id="container"
           data={this.state.chartData}

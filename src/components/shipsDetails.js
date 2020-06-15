@@ -129,7 +129,7 @@ class DetailsGraph extends React.Component {
   render() {
 		return (
 			<div className="flex flex-col items-center w-full max-w-md">
-				<h2>Bar Live Data Sample1</h2>
+				<h2>Stacked Bar Hard Data Sample</h2>
 				<Bar
           id="container"
           data={this.state.chartData}
