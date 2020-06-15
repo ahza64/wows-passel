@@ -13,6 +13,7 @@ exports.shipsCompare = function (req, res) {
       "name": 1,
       "tier": 1,
       "default_profile": 1,
+      "modules": 1,
       "fpm": {
         $multiply: [
           {"$divide": ["$default_profile.artillery.shells.HE.burn_probability", 100]},
@@ -58,8 +59,13 @@ exports.shipsCompare = function (req, res) {
         }
       ]
 
-
-    res.send(dataset);
+    let resObj = {
+      dataset: dataset,
+      default_profile: ship[0].default_profile,
+      modules: ship[0].modules
+    }
+    console.log("resObj", resObj);
+    res.send(resObj);
   });
 
 };

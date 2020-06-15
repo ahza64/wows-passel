@@ -32,7 +32,18 @@ class DetailsGraph extends React.Component {
     }
   }
 
-  // componentDidMount() {
+  componentDidMount() {
+    fetch(`ship/Montana`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("component did moiunt", data);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
   //
   //   const chartData11 = this.state.chartData;
   //   const current = chartData11;
