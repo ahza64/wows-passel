@@ -154,6 +154,12 @@ var shipSchema = new Schema({
           caliber: Number,
           guns: Number,
           name: String
+        },
+        1: {
+          barrels: Number,
+          caliber: Number,
+          guns: Number,
+          name: String
         }
       },
       torpedo_name: String,

@@ -27,8 +27,8 @@ exports.shipsTorpDPM = function (req, res) {
               },
               {
                 $multiply: [
-                  {"$ifNull": ["$default_profile.torpedoes.slots.1.guns", 1]},
-                  {"$ifNull": ["$default_profile.torpedoes.slots.1.barrels", 1]}
+                  {"$ifNull": ["$default_profile.torpedoes.slots.1.guns", 0]},
+                  {"$ifNull": ["$default_profile.torpedoes.slots.1.barrels", 0]}
                 ]
               }
             ]
