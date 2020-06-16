@@ -44,7 +44,7 @@ class DetailsGraph extends React.Component {
     .then((data) => {
       console.log("component did moiunt", data);
       // aggregate data here
-      console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
+      // console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
       let chartData = this.state.chartData;
       chartData.datasets[0].data[0] = data.default_profile.hull.health;
       chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
@@ -62,27 +62,26 @@ class DetailsGraph extends React.Component {
   handleShip1Change(e) {
     e.preventDefault();
     e.persist();
-    // const chartData11 = this.state.chartData;
-    // const current = chartData11;
-    //
-    // this.setState({ship1: e.target.value});
-    //
-    // fetch(`/ship/${e.target.value}`)
-    // .then((res) => {
-    //   return res.json();
-    // })
-    // .then((data) => {
-    //   console.log("update successful", data[0]);
-    //   current.datasets[0].data = data[0].data;
-    //   current.datasets[0].label = data[0].label;
-    //   console.log("current", current);
-    //   this.setState({
-    //     chartData: current
-    //   });
-    // })
-    // .catch( err => {
-    //   console.log(err);
-    // });
+    fetch(`ship/${e.target.value}`)
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      console.log("component did moiunt", data);
+      // aggregate data here
+      console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
+      let chartData = this.state.chartData;
+      chartData.datasets[0].data[0] = data.default_profile.hull.health;
+      chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      // need to update DB aggregation to include dpm and fpm calculations
+
+      this.setState({
+        chartData: chartData
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    })
   }
 
   render() {
