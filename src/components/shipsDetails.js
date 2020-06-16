@@ -48,6 +48,7 @@ class DetailsGraph extends React.Component {
       let chartData = this.state.chartData;
       chartData.datasets[0].data[0] = data.default_profile.hull.health;
       chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      // need to update DB aggregation to include dpm and fpm calculations
 
       this.setState({
         chartData: chartData
@@ -57,77 +58,37 @@ class DetailsGraph extends React.Component {
       console.log(err);
     })
   }
-  //
-  //   const chartData11 = this.state.chartData;
-  //   const current = chartData11;
-  //
-  //   fetch(`/ship/Des Moines`)
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     console.log("update successful", data[0]);
-  //     current.datasets[0].data = data[0].data;
-  //     current.datasets[0].label = data[0].label;
-  //     console.log("current", current);
-  //     this.setState({
-  //       chartData: current
-  //     });
-  //   })
-  //   .catch( err => {
-  //     console.log(err);
-  //   });
-  //
-  //   fetch(`/ship/Montana`)
-  //   .then((res) => {
-  //     return res.json();
-  //   })
-  //   .then((data) => {
-  //     console.log("update successful", data[0]);
-  //     current.datasets[1].data = data[0].data;
-  //     current.datasets[1].label = data[0].label;
-  //     console.log("current", current);
-  //     this.setState({
-  //       chartData: current
-  //     });
-  //   })
-  //   .catch( err => {
-  //     console.log(err);
-  //   });
-  //
-  // }
 
   handleShip1Change(e) {
     e.preventDefault();
     e.persist();
-    const chartData11 = this.state.chartData;
-    const current = chartData11;
-
-    this.setState({ship1: e.target.value});
-
-    fetch(`/ship/${e.target.value}`)
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      console.log("update successful", data[0]);
-      current.datasets[0].data = data[0].data;
-      current.datasets[0].label = data[0].label;
-      console.log("current", current);
-      this.setState({
-        chartData: current
-      });
-    })
-    .catch( err => {
-      console.log(err);
-    });
-
+    // const chartData11 = this.state.chartData;
+    // const current = chartData11;
+    //
+    // this.setState({ship1: e.target.value});
+    //
+    // fetch(`/ship/${e.target.value}`)
+    // .then((res) => {
+    //   return res.json();
+    // })
+    // .then((data) => {
+    //   console.log("update successful", data[0]);
+    //   current.datasets[0].data = data[0].data;
+    //   current.datasets[0].label = data[0].label;
+    //   console.log("current", current);
+    //   this.setState({
+    //     chartData: current
+    //   });
+    // })
+    // .catch( err => {
+    //   console.log(err);
+    // });
   }
 
   render() {
 		return (
 			<div className="flex flex-col items-center w-full max-w-md">
-				<h2>Stacked Bar Hard Data Sample</h2>
+				<h2>Stacked Bar Live Data Sample</h2>
 				<Bar
           id="container"
           data={this.state.chartData}
