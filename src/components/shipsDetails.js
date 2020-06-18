@@ -7,7 +7,7 @@ class DetailsGraph extends React.Component {
     super(props);
 
     this.state = {
-      ship1: '',
+      ship1: "Fletcher",
       ship2: '',
       chartData: {
         labels: ["hit points","HE DPM","AP DPM","Torp DPM"],
@@ -42,6 +42,7 @@ class DetailsGraph extends React.Component {
       return res.json();
     })
     .then((data) => {
+
       console.log("component did moiunt", data);
       // aggregate data here
       // console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
@@ -62,6 +63,7 @@ class DetailsGraph extends React.Component {
   handleShip1Change(e) {
     e.preventDefault();
     e.persist();
+    this.setState({ship1: e.target.value});
     fetch(`ship/${e.target.value}`)
     .then((res) => {
       return res.json();
@@ -69,14 +71,15 @@ class DetailsGraph extends React.Component {
     .then((data) => {
       console.log("component did moiunt", data);
       // aggregate data here
-      console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
-      let chartData = this.state.chartData;
-      chartData.datasets[0].data[0] = data.default_profile.hull.health;
-      chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      // console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
+      const current = this.state.chartData;
+      current.datasets[0].data[0] = data.default_profile.hull.health;
+      current.datasets[0].label = `${this.state.ship1} base stats`;
+      current.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
       // need to update DB aggregation to include dpm and fpm calculations
 
       this.setState({
-        chartData: chartData
+        chartData: current
       });
     })
     .catch(err => {
@@ -92,6 +95,11 @@ class DetailsGraph extends React.Component {
           id="container"
           data={this.state.chartData}
           options={ {
+            title:{
+              display:true,
+              text:`${this.state.ship1}`,
+              fontSize:20
+            },
               tooltips: {
                 displayColors: true,
                 callbacks:{
