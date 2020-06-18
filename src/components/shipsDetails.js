@@ -48,7 +48,9 @@ class DetailsGraph extends React.Component {
       // console.log(data.modules.hull[0].profile.hull.health - data.default_profile.hull.health);
       let chartData = this.state.chartData;
       chartData.datasets[0].data[0] = data.default_profile.hull.health;
-      chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      if (data.modules.hull[0].profile.hull.health){
+        chartData.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      }
       // need to update DB aggregation to include dpm and fpm calculations
 
       this.setState({
@@ -75,7 +77,9 @@ class DetailsGraph extends React.Component {
       const current = this.state.chartData;
       current.datasets[0].data[0] = data.default_profile.hull.health;
       current.datasets[0].label = `${this.state.ship1} base stats`;
-      current.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      if (data.modules.hull[0].profile.hull.health){
+        current.datasets[1].data[0] = data.modules.hull[0].profile.hull.health - data.default_profile.hull.health;
+      }
       // need to update DB aggregation to include dpm and fpm calculations
 
       this.setState({
