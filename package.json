@@ -10,7 +10,7 @@
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
     "mongoose": "^5.9.7",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "react": "^16.13.0",
     "react-bootstrap": "^1.0.0",
     "react-chartjs-2": "^2.9.0",
